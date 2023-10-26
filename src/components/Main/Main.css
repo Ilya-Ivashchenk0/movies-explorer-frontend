@@ -1,0 +1,9 @@
+.main {
+  display: block;
+}
+
+.main__block {
+  background-color: red;
+  width: 1140px;
+  height: 350px;
+}

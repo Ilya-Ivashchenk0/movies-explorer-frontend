@@ -1,0 +1,137 @@
+.about-project {
+  padding: 110px 70px 110px 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-project {
+    padding: 70px 18px 69px 18px;
+  }
+}
+
+.about-project__title {
+  margin: 0;
+  padding-bottom: 23px;
+  display: flex;
+  align-items: flex-start;
+  color: #fff;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 26.63px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-project__title {
+    font-size: 18px;
+    line-height: 21.78px;
+  }
+}
+
+.about-project__table {
+  margin: 0;
+  padding: 70px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  border-top: 1px solid #DADADA;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-project__table {
+    flex-direction: column;
+    padding: 60px 0 60px 0;
+  }
+}
+
+.about-project__table-cell {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  max-width: 550px;
+}
+
+.about-project__heading {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24.2px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-project__heading {
+    font-size: 18px;
+    line-height: 21.78px;
+  }
+}
+
+.about-project__text {
+  margin: 26px 0 0 0;
+  padding: 0;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-project__text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
+.about-project__loading-bar {
+  margin: 110px 0 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(100px, 228px) minmax(184px, 912px);
+  grid-template-rows: 36px 36px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-project__loading-bar {
+    margin: 0;
+  }
+}
+
+.about-project__bar {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-project__bar {
+    font-size: 11px;
+    line-height: 13.31px;
+  }
+}
+
+.about-project__bar_type_void {
+  color: #8B8B8B;
+}
+
+.about-project__bar_type_green {
+  color: #000000;
+  background-color: #3DDC84;
+}
+
+.about-project__bar_type_gray {
+  color: #fff;
+  background-color: #303030;
+}

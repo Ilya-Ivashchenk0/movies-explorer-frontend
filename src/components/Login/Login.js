@@ -1,6 +1,8 @@
+import './Login.css'
+
 function Login() {
   return (
-    <div></div>
+    <div className="login" />
   )
 }
 
