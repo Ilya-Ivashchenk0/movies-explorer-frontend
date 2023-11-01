@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer'
 import Techs from './Techs/Techs'
 import AboutProject from './AboutProject/AboutProject'
 import AboutMe from './AboutMe/AboutMe'
+import Portfolio from './Portfolio/Portfolio'
 
 function Main() {
   return (
@@ -12,6 +13,7 @@ function Main() {
       <AboutProject />
       <Techs />
       <AboutMe />
+      <Portfolio />
       <Footer />
     </div>
   )

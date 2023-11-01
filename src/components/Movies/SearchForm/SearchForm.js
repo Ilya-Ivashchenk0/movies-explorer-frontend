@@ -1,8 +1,11 @@
 import './SearchForm.css'
+import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 
 function SearchForm() {
   return (
-    <div />
+    <section className='search-form'>
+      <FilterCheckbox />
+    </section>
   )
 }
 

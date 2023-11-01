@@ -1,9 +1,5 @@
 .main {
+  margin: 0;
+  padding: 0;
   display: block;
-}
-
-.main__block {
-  background-color: red;
-  width: 1140px;
-  height: 350px;
 }

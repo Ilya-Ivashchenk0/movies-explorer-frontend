@@ -9,7 +9,7 @@ function Header() {
         <img src={logo} alt="Логотип промо блока" className="header__logo" />
       </Link>
       <div>
-        <Link href='/signup' className='header__link'>Регистрация</Link>
+        <Link to='/signup' className='header__link'>Регистрация</Link>
         <Link to='/signin'>
           <button className='header__button'>Войти</button>
         </Link>

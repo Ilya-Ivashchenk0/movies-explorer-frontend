@@ -1,7 +1,5 @@
 import './AboutMe.css'
 import avatar from '../../../images/avatar.svg'
-import arrow from '../../../images/arrow.svg'
-import { Link } from 'react-router-dom'
 
 function AboutMe() {
   return (
@@ -15,23 +13,6 @@ function AboutMe() {
           <p className='about-me__git'>Github</p>
         </div>
         <img className='about-me__avatar' src={avatar} alt="Avatar" />
-      </div>
-      <div className='about-me__portfolio'>
-        <h4 className='about-me__portfolio-title'>Портфолио</h4>
-        <ul className='about-me__portfolio-list'>
-          <li className='about-me__portfolio-band'>
-            <Link className='about-me__portfolio-link' href=''>Статичный сайт</Link>
-            <img className='about-me__portfolio-icon' src={arrow} alt="arrow-icon" />
-          </li>
-          <li className='about-me__portfolio-band'>
-            <Link className='about-me__portfolio-link' href=''>Адаптивный сайт</Link>
-            <img className='about-me__portfolio-icon' src={arrow} alt="arrow-icon" />
-          </li>
-          <li className='about-me__portfolio-band about-me__portfolio-band_type_underlined-none'>
-            <Link className='about-me__portfolio-link' href=''>Одностраничное приложение</Link>
-            <img className='about-me__portfolio-icon' src={arrow} alt="arrow-icon" />
-          </li>
-        </ul>
       </div>
     </section>
   )
