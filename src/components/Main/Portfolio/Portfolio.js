@@ -1,5 +1,4 @@
 import './Portfolio.css'
-import { Link } from 'react-router-dom'
 import arrow from '../../../images/arrow.svg'
 
 function Portfolio() {
@@ -8,19 +7,19 @@ function Portfolio() {
       <h4 className='portfolio__title'>Портфолио</h4>
       <ul className='portfolio__list'>
         <li className='portfolio__band'>
-          <Link className='portfolio__link' to='/'>Статичный сайт
+          <a className='portfolio__link' href='https://github.com/Ilya-Ivashchenk0/how-to-learn' target="_blank" rel="noreferrer">Статичный сайт
             <img className='portfolio__icon' src={arrow} alt="arrow__icon" />
-          </Link>
+          </a>
         </li>
         <li className='portfolio__band'>
-          <Link className='portfolio__link' to='/'>Адаптивный сайт
+          <a className='portfolio__link' href='https://github.com/Ilya-Ivashchenk0/yet-another-project' target="_blank" rel="noreferrer">Адаптивный сайт
             <img className='portfolio__icon' src={arrow} alt="arrow__icon" />
-          </Link>
+          </a>
         </li>
         <li className='portfolio__band portfolio__band_type_underlined-none'>
-          <Link className='portfolio__link' to='/'>Одностраничное приложение
+          <a className='portfolio__link' href='https://github.com/Ilya-Ivashchenk0/mesto' target="_blank" rel="noreferrer">Одностраничное приложение
             <img className='portfolio__icon' src={arrow} alt="arrow__icon" />
-          </Link>
+          </a>
         </li>
       </ul>
     </section>
