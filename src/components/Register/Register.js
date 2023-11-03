@@ -1,7 +1,24 @@
-function Login() {
+import './Register.css'
+import { Link } from 'react-router-dom'
+import logo from '../../images/logo.svg'
+
+function Register() {
   return (
-    <div></div>
+    <div className="register">
+      <img className="register__logo" src={logo} alt="logo" />
+      <h1 className="register__hello">Добро пожаловать!</h1>
+      <form className='register__form' action="">
+        <span className='register__heading'>Имя</span>
+        <input type="text" className='register__input' />
+        <span className='register__heading'>E-mail</span>
+        <input type="text" className='register__input' />
+        <span className='register__heading'>Пароль</span>
+        <input type="text" className='register__input' />
+      </form>
+      <button className='register__button'>Зарегистрироваться</button>
+      <p className='register__question'>Уже зарегистрированы?<Link className='register__signin' to="/signin">Войти</Link></p>
+    </div>
   )
 }
 
-export default Login
+export default Register
