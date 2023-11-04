@@ -45,6 +45,9 @@
   margin: 0;
   padding: 0;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
@@ -121,11 +124,13 @@
 }
 
 .about-me__git {
-  margin: 99px 0 0 0;
-  padding: 0;
+  margin: 0;
+  padding-top: 99px;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+  text-decoration: none;
+  color: #fff;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {

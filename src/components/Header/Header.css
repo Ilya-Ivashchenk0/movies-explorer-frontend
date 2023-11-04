@@ -26,6 +26,20 @@
   height: 38px;
 }
 
+.header__movies-links {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  min-width: 212px;
+}
+
+.header__sign-links {
+  margin: 0;
+  padding: 0;
+
+}
+
 .header__link {
   margin: 0;
   padding: 0;
@@ -37,7 +51,7 @@
   text-decoration: none;
 }
 
-.header__button {
+.header__signin-button {
   max-width: 76px;
   max-height: 32px;
   padding: 8px 20px 8px 20px;
@@ -49,4 +63,69 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
+}
+
+.header__profile-button {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #202020;
+  border: none;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 12px;
+  font-weight: 500;
+  min-width: 100px;
+  min-height: 32px;
+  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.08);
+}
+
+.header__profile-round {
+  margin-left: 7px;
+  padding: 0;
+  background-color: #313131;
+  border-radius: 50px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__profile-icon {
+  margin: 0;
+  padding: 0;
+  width: 10.38px;
+  height: 10.67px;
+}
+
+.header__dashboard {
+  margin: 0;
+  padding-left: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header__menu-button {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  width: 44px;
+  height: 44px;
+}
+
+.header__menu-icon {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
