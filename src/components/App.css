@@ -10,3 +10,13 @@
   text-rendering: optimizeLegibility;
   min-height: 100vh;
 }
+
+.hover-element-button:hover {
+  opacity: 0.8;
+  transition: opacity 0.7s ease-in-out;
+}
+
+.hover-element-link:hover {
+  opacity: 0.7;
+  transition: opacity 0.7s ease-in-out;
+}

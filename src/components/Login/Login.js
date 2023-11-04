@@ -13,8 +13,8 @@ function Login() {
         <span className='login__heading'>Пароль</span>
         <input type="text" className='login__input' />
       </form>
-      <button className='login__button'>Войти</button>
-      <p className='login__question'>Ещё не зарегистрированы?<Link className='login__signup' to="/signup">Регистрация</Link></p>
+      <button className='login__button hover-element-button'>Войти</button>
+      <p className='login__question'>Ещё не зарегистрированы?<Link className='login__signup hover-element-link' to="/signup">Регистрация</Link></p>
     </div>
   )
 }

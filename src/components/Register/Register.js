@@ -15,8 +15,8 @@ function Register() {
         <span className='register__heading'>Пароль</span>
         <input type="text" className='register__input' />
       </form>
-      <button className='register__button'>Зарегистрироваться</button>
-      <p className='register__question'>Уже зарегистрированы?<Link className='register__signin' to="/signin">Войти</Link></p>
+      <button className='register__button hover-element-button'>Зарегистрироваться</button>
+      <p className='register__question'>Уже зарегистрированы?<Link className='register__signin hover-element-link' to="/signin">Войти</Link></p>
     </div>
   )
 }

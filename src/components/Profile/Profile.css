@@ -1,8 +1,6 @@
 .profile {
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
@@ -15,6 +13,15 @@
   .profile {
     padding-bottom: 25.9vh;
   }
+}
+
+.profile__overlay {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__overlay_type_active {
+  opacity: 30%;
 }
 
 .profile__hello {

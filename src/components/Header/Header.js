@@ -1,19 +1,15 @@
 import './Header.css'
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../images/logo.svg'
 import burger from '../../images/burger.svg'
-import close from '../../images/close.svg'
 import profile from '../../images/profile.svg'
 
-function Header() {
-  const [loggedIn, setLoggedIn] = useState(true)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+function Header({ toggleNavTab, isOpenNavTab }) {
+  const navigate = useNavigate()
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+  const [loggedIn, setLoggedIn] = useState(true)
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
   useEffect(() => {
     const handleResize = () => { // обработчик изменения размера окна
@@ -25,18 +21,22 @@ function Header() {
     }
   }, [])
 
+  const goToPofile = () => {
+    navigate('/profile')
+  }
+
   return (
     <header className='header'>
       <Link to='/'>
-        <img src={logo} alt="Логотип промо блока" className="header__logo" />
+        <img src={logo} alt="Логотип" className="header__logo hover-element-link" />
       </Link>
-      {loggedIn && windowWidth >= 768 && (
+      {loggedIn && windowWidth > 768 && (
         <div className='header__dashboard'>
           <div className='header__movies-links'>
-            <Link to='/movies' className='header__link'>Фильмы</Link>
-            <Link to='/saved-movies' className='header__link'>Сохранённые фильмы</Link>
+            <Link to='/movies' className='header__link hover-element-link'>Фильмы</Link>
+            <Link to='/saved-movies' className='header__link hover-element-link'>Сохранённые фильмы</Link>
           </div>
-          <button className='header__profile-button'>
+          <button className='header__profile-button hover-element-button' onClick={goToPofile}>
             Акаунт
             <div className='header__profile-round'>
               <img className='header__profile-icon' src={profile} alt="profile icon" />
@@ -46,21 +46,21 @@ function Header() {
       )}
       {!loggedIn && (
         <div className='header__sign-links'>
-          <Link to='/signup' className='header__link'>Регистрация</Link>
+          <Link to='/signup' className='header__link hover-element-link'>Регистрация</Link>
           <Link to='/signin'>
-            <button className='header__signin-button'>Войти</button>
+            <button className='header__signin-button hover-element-button'>Войти</button>
           </Link>
         </div>
       )}
-      {windowWidth <= 767 && (
+      {loggedIn && windowWidth <= 768 && (
         <button
-          onClick={toggleMenu}
-          className='header__menu-button'
+          onClick={toggleNavTab}
+          className='header__menu-button hover-element-button'
           aria-label='Иконка меню'
         >
           <img
-            src={isMenuOpen ? close : burger}
-            alt={isMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+            src={burger}
+            alt='Открыть меню'
             className='header__menu-icon'
           />
         </button>
@@ -70,20 +70,3 @@ function Header() {
 }
 
 export default Header
-
-// {windowWidth >= 768 ? (
-//   <>
-//     <Link to='/'>
-//       <img src={logo} alt="Логотип промо блока" className="header__logo" />
-//     </Link>
-//     <div>
-//       <Link to='/signup' className='header__link'>Регистрация</Link>
-//       <Link to='/signin'>
-//         <button className='header__button'>Войти</button>
-//       </Link>
-//     </div>
-//   </>
-// ) : (
-//   <div></div>
-// )}
-

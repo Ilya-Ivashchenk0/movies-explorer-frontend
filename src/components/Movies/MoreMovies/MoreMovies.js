@@ -19,7 +19,7 @@ function MoreMovies() {
       {loading ? (
         <Preloader />
       ) : (
-        <button className='more-movies__button' onClick={handleButtonClick}>
+        <button className='more-movies__button hover-element-button' onClick={handleButtonClick}>
           Ещё
         </button>
       )}

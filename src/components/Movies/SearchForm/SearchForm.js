@@ -23,7 +23,7 @@ function SearchForm() {
           <div className="search-form__panel">
             <img className="search-form__icon" src={search} alt="search-icon" />
             <input className="search-form__input" type="text" placeholder="Фильм" />
-            <button className="search-form__button">Найти</button>
+            <button className="search-form__button hover-element-button">Найти</button>
             <FilterCheckbox />
           </div>
           <div className="search-form__line" />
@@ -32,7 +32,7 @@ function SearchForm() {
         <>
           <div className="search-form__panel">
             <input className="search-form__input" type="text" placeholder="Фильм" />
-            <button className="search-form__button">Найти</button>
+            <button className="search-form__button hover-element-button">Найти</button>
           </div>
           <FilterCheckbox />
           <div className="search-form__line" />

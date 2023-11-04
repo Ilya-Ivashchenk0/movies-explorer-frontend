@@ -7,3 +7,8 @@
   background-color: #202020;
 }
 
+.saved-movies__overlay {
+  opacity: 30%;
+  transition: opacity 0.3s ease-in-out;
+}
+
