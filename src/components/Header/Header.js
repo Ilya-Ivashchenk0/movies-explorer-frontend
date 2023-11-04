@@ -11,6 +11,10 @@ function Header({ toggleNavTab, isOpenNavTab }) {
   const [loggedIn, setLoggedIn] = useState(true)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
+  const toggleLogin = () => {
+    setLoggedIn(true)
+  }
+
   useEffect(() => {
     const handleResize = () => { // обработчик изменения размера окна
       setWindowWidth(window.innerWidth)
@@ -30,7 +34,7 @@ function Header({ toggleNavTab, isOpenNavTab }) {
       <Link to='/'>
         <img src={logo} alt="Логотип" className="header__logo hover-element-link" />
       </Link>
-      {loggedIn && windowWidth > 768 && (
+      {loggedIn && windowWidth > 1279 && (
         <div className='header__dashboard'>
           <div className='header__movies-links'>
             <Link to='/movies' className='header__link hover-element-link'>Фильмы</Link>
@@ -52,9 +56,10 @@ function Header({ toggleNavTab, isOpenNavTab }) {
           </Link>
         </div>
       )}
-      {loggedIn && windowWidth <= 768 && (
+      {loggedIn && windowWidth <= 1279 && (
         <button
           onClick={toggleNavTab}
+          onClose={toggleLogin}
           className='header__menu-button hover-element-button'
           aria-label='Иконка меню'
         >

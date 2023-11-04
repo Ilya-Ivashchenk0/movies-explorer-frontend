@@ -3,24 +3,28 @@
   padding: 0;
   position: fixed;
   top: 0;
-  min-width: 520px;
   height: 100%;
   right: -520px;
   background-color: #202020;
   transition: right 0.3s ease-in-out;
-  z-index: 10;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .nav-tab {
+    min-width: 520px;
+  }
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .nav-tab {
-    right: -100%;
+    right: -130%;
     min-width: 100%;
   }
 }
 
 .nav-tab__menu {
   margin: 0;
-  padding: 159px 90px 88px 90px;
+  padding: 159px 0 88px 0;
   display: flex;
   justify-content: center;
   align-items: center;
