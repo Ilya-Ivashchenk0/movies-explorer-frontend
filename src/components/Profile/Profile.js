@@ -8,13 +8,14 @@ function Profile() {
   const navigate = useNavigate()
 
   const [isOpenNavTab, setIsOpenNavTab] = useState(false)
+  const [isEditing, setIsEditing] = useState(true)
 
   const toggleNavTab = () => {
     setIsOpenNavTab(!isOpenNavTab)
   }
 
   const handleEdit = () => {
-
+    setIsEditing(!isEditing)
   }
 
   const signout = () => {
@@ -36,6 +37,7 @@ function Profile() {
               value='Виталий'
               minLength='2'
               maxLength='30'
+              disabled={isEditing}
               required
             />
           </div>
@@ -48,6 +50,7 @@ function Profile() {
               value={'pochta@yandex.ru'}
               minLength='2'
               maxLength='40'
+              disabled={isEditing}
               required
             />
           </div>
