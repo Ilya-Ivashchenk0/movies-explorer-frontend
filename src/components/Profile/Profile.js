@@ -1,13 +1,24 @@
 import './Profile.css'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Header from '../Header/Header'
 import NavTab from '../NavTab/NavTab'
 
 function Profile() {
+  const navigate = useNavigate()
+
   const [isOpenNavTab, setIsOpenNavTab] = useState(false)
 
   const toggleNavTab = () => {
     setIsOpenNavTab(!isOpenNavTab)
+  }
+
+  const handleEdit = () => {
+
+  }
+
+  const signout = () => {
+    navigate('/')
   }
 
   return (
@@ -22,7 +33,7 @@ function Profile() {
               className='profile__input'
               type='text'
               id='username'
-              placeholder='Виталий'
+              value='Виталий'
               minLength='2'
               maxLength='30'
               required
@@ -34,15 +45,15 @@ function Profile() {
               className='profile__input'
               type='email'
               id='email'
-              placeholder='pochta@yandex.ru'
+              value={'pochta@yandex.ru'}
               minLength='2'
               maxLength='40'
               required
             />
           </div>
         </form>
-        <button className='profile__edit-button hover-element-button' type='button'>Редактировать</button>
-        <button className='profile__signout-button hover-element-button' type='button'>Выйти из аккаунта</button>
+        <button onClick={handleEdit} className='profile__edit-button hover-element-button' type='button'>Редактировать</button>
+        <button onClick={signout} className='profile__signout-button hover-element-button' type='button'>Выйти из аккаунта</button>
       </div>
       <NavTab isOpenNavTab={isOpenNavTab} toggleNavTab={toggleNavTab} />
     </main>

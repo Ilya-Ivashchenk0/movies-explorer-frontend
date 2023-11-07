@@ -109,4 +109,10 @@
   background: transparent;
   border: none;
   text-align: right;
+  color: #FFFFFF;
+}
+
+.profile__input:focus {
+  outline: none;
+  border: none;
 }

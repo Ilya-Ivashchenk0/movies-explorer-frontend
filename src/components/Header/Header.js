@@ -9,7 +9,6 @@ function Header({ toggleNavTab, isOpenNavTab }) {
 
   const [loggedIn, setLoggedIn] = useState(true)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-  console.log(window.innerWidth)
 
   const toggleLogin = () => {
     setLoggedIn(true)
