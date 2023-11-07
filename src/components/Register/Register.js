@@ -4,7 +4,7 @@ import logo from '../../images/logo.svg'
 
 function Register() {
   return (
-    <div className="register">
+    <main className="register">
       <img className="register__logo" src={logo} alt="logo" />
       <h1 className="register__hello">Добро пожаловать!</h1>
       <form className='register__form' action="">
@@ -17,7 +17,7 @@ function Register() {
       </form>
       <button className='register__button hover-element-button'>Зарегистрироваться</button>
       <p className='register__question'>Уже зарегистрированы?<Link className='register__signin hover-element-link' to="/signin">Войти</Link></p>
-    </div>
+    </main>
   )
 }
 

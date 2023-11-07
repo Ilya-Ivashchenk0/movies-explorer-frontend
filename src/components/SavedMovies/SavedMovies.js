@@ -3,7 +3,7 @@ import { useState } from 'react'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import SearchForm from '../Movies/SearchForm/SearchForm'
-import MoviesCardList from './MoviesCardList/MoviesCardList'
+import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import VoidBlock from './VoidBlock/VoidBlock'
 import NavTab from '../NavTab/NavTab'
 
@@ -15,7 +15,7 @@ function SavedMovies() {
   }
 
   return (
-    <div className='saved-movies'>
+    <main className='saved-movies'>
       <div className={`${isOpenNavTab ? 'saved-movies__overlay' : ''}`}>
         <Header isOpenNavTab={isOpenNavTab} toggleNavTab={toggleNavTab} />
         <SearchForm />
@@ -24,7 +24,7 @@ function SavedMovies() {
         <Footer />
       </div>
       <NavTab isOpenNavTab={isOpenNavTab} toggleNavTab={toggleNavTab} />
-    </div>
+    </main>
   )
 }
 

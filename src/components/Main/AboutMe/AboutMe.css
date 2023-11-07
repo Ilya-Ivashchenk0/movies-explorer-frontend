@@ -1,6 +1,6 @@
 .about-me {
   margin: 0;
-  padding: 110px 70px 125px 70px;
+  padding: 115px 70px 100px 70px;
   display: flex;
   flex-direction: column;
   background-color: #202020;
@@ -25,11 +25,20 @@
   font-weight: 400;
   font-size: 22px;
   line-height: 26.63px;
+  letter-spacing: -0.8px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-me__title {
+    padding-bottom: 27px;
+    font-size: 18px;
+    line-height: 1;
+  }
 }
 
 .about-me__block {
   margin: 0;
-  padding: 66px 0 0 0;
+  padding-top: 66px;
   display: flex;
   justify-content: space-between;
   border-top: 1px solid #DADADA;
@@ -37,7 +46,9 @@
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .about-me__block {
+    padding-top: 60px;
     flex-direction: column-reverse;
+    align-items: center;
   }
 }
 
@@ -47,7 +58,6 @@
   color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
@@ -62,24 +72,28 @@
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
+  letter-spacing: -2px;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
   .about-me__name {
     font-size: 40px;
     line-height: 40px;
+    letter-spacing: -1.5px;
   }
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .about-me__name {
+    padding-top: 40px;
     font-size: 30px;
     line-height: 36.31px;
+    letter-spacing: -1.2px;
   }
 }
 
 .about-me__profession {
-  margin: 18px 0 26px 0;
+  margin-top: 18px;
   padding: 0;
   font-weight: 500;
   font-size: 18px;
@@ -88,6 +102,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
   .about-me__profession {
+    margin-top: 16px;
     font-size: 12px;
     line-height: 18px;
   }
@@ -95,37 +110,42 @@
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .about-me__profession {
+    margin-top: 20px;
     font-size: 11px;
     line-height: 16px;
   }
 }
 
-.about-me__description {
-  margin: 0;
+.about-me__about {
+  margin-top: 1px;
   padding: 0;
   max-width: 600px;
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
+  letter-spacing: 0.01px;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1279px) {
-  .about-me__description {
-    font-size: 12px;
-    line-height: 18px;
+  .about-me__about {
+    margin-top: 5px;
+    font-size: 11px;
+    line-height: 17.85px;
+    letter-spacing: 0.53px;
   }
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
-  .about-me__description {
+  .about-me__about {
+    margin-top: 5px;
     font-size: 11px;
     line-height: 16px;
   }
 }
 
 .about-me__git {
-  margin: 0;
-  padding-top: 99px;
+  margin-top: 86px;
+  padding: 0;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -133,15 +153,35 @@
   color: #fff;
 }
 
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .about-me__git {
+    margin-top: 75px;
+  }
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .about-me__git {
-    margin: 40px 0 0 0;
+    margin-top: 30px;
   }
 }
 
 .about-me__avatar {
   margin: 0;
   padding: 0;
-  width: 270px;
-  height: 327px;
+  max-width: 270px;
+  max-height: 327px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .about-me__avatar {
+    max-width: 255px;
+    max-height: 307px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .about-me__avatar {
+    min-width: 292px;
+    max-height: 352px;
+  }
 }

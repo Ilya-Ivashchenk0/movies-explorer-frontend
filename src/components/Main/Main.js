@@ -17,8 +17,8 @@ function Main() {
   }
 
   return (
-    <div className='main'>
-      <div className={`${isOpenNavTab ? 'main__overlay' : ''}`}>
+    <main className='main'>
+      <div className={`main__overlay ${isOpenNavTab ? 'main__active-overlay' : ''}`}>
         <Header toggleNavTab={toggleNavTab} isOpenNavTab={isOpenNavTab} />
         <Promo />
         <AboutProject />
@@ -28,7 +28,7 @@ function Main() {
         <Footer />
       </div>
       <NavTab isOpenNavTab={isOpenNavTab} toggleNavTab={toggleNavTab} />
-    </div>
+    </main>
   )
 }
 
