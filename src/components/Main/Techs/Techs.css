@@ -1,6 +1,6 @@
 .techs {
   margin: 0;
-  padding: 100px 70px 80px 70px;
+  padding: 105px 70px 80px 70px;
   display: flex;
   flex-direction: column;
   background-color: #272727;
@@ -21,7 +21,7 @@
 
 .techs__title {
   margin: 0;
-  padding-bottom: 27px;
+  padding-bottom: 25px;
   color: #fff;
   font-weight: 400;
   font-size: 21px;

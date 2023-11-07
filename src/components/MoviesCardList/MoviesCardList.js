@@ -23,24 +23,45 @@ function MoviesCardList() {
 
   const cards = () => {
     if (location.pathname === '/movies') {
-      return [
-        {id: 1, img: film1, name: '33 слова о дизайне', time: '1ч 42м'},
-        {id: 2, img: film2, name: 'Киноальманах «100 лет дизайна»', time: '1ч 42м'},
-        {id: 3, img: film3, name: 'В погоне за Бенкси', time: '1ч 42м'},
-        {id: 4, img: film4, name: 'Баския: Взрыв реальности', time: '1ч 42м'},
-        {id: 5, img: film5, name: 'Бег это свобода', time: '1ч 42м'},
-        {id: 6, img: film6, name: 'Книготорговцы', time: '1ч 42м'},
-        {id: 7, img: film7, name: 'Когда я думаю о Германии ночью', time: '1ч 42м'},
-        {id: 8, img: film8, name: 'Gimme Danger: История Игги и The Stooges', time: '1ч 42м'},
-        {id: 9, img: film9, name: 'Дженис: Маленькая девочка грустит', time: '1ч 42м'},
-        {id: 10, img: film10, name: 'Соберись перед прыжком', time: '1ч 42м'},
-        {id: 11, img: film11, name: 'Пи Джей Харви: A dog called money', time: '1ч 42м'},
-        {id: 12, img: film12, name: 'По волнам: Искусство звука в кино', time: '1ч 42м'},
-        {id: 13, img: film13, name: 'Рудбой', time: '1ч 42м'},
-        {id: 14, img: film14, name: 'Скейт — кухня', time: '1ч 42м'},
-        {id: 15, img: film15, name: 'Война искусств', time: '1ч 42м'},
-        {id: 16, img: film16, name: 'Зона', time: '1ч 42м'}
-      ]
+      if (window.innerWidth <= 767) {
+        return [
+          {id: 1, img: film1, name: '33 слова о дизайне', time: '1ч 42м'},
+          {id: 2, img: film2, name: 'Киноальманах «100 лет дизайна»', time: '1ч 42м'},
+          {id: 3, img: film3, name: 'В погоне за Бенкси', time: '1ч 42м'},
+          {id: 4, img: film4, name: 'Баския: Взрыв реальности', time: '1ч 42м'},
+          {id: 5, img: film5, name: 'Бег это свобода', time: '1ч 42м'},
+        ]
+      } else if (window.innerWidth === 768) {
+        return [
+          {id: 1, img: film1, name: '33 слова о дизайне', time: '1ч 42м'},
+          {id: 2, img: film2, name: 'Киноальманах «100 лет дизайна»', time: '1ч 42м'},
+          {id: 3, img: film3, name: 'В погоне за Бенкси', time: '1ч 42м'},
+          {id: 4, img: film4, name: 'Баския: Взрыв реальности', time: '1ч 42м'},
+          {id: 5, img: film5, name: 'Бег это свобода', time: '1ч 42м'},
+          {id: 6, img: film6, name: 'Книготорговцы', time: '1ч 42м'},
+          {id: 7, img: film7, name: 'Когда я думаю о Германии ночью', time: '1ч 42м'},
+          {id: 8, img: film8, name: 'Gimme Danger: История Игги и The Stooges', time: '1ч 42м'},
+        ]
+      } else {
+        return [
+          {id: 1, img: film1, name: '33 слова о дизайне', time: '1ч 42м'},
+          {id: 2, img: film2, name: 'Киноальманах «100 лет дизайна»', time: '1ч 42м'},
+          {id: 3, img: film3, name: 'В погоне за Бенкси', time: '1ч 42м'},
+          {id: 4, img: film4, name: 'Баския: Взрыв реальности', time: '1ч 42м'},
+          {id: 5, img: film5, name: 'Бег это свобода', time: '1ч 42м'},
+          {id: 6, img: film6, name: 'Книготорговцы', time: '1ч 42м'},
+          {id: 7, img: film7, name: 'Когда я думаю о Германии ночью', time: '1ч 42м'},
+          {id: 8, img: film8, name: 'Gimme Danger: История Игги и The Stooges', time: '1ч 42м'},
+          {id: 9, img: film9, name: 'Дженис: Маленькая девочка грустит', time: '1ч 42м'},
+          {id: 10, img: film10, name: 'Соберись перед прыжком', time: '1ч 42м'},
+          {id: 11, img: film11, name: 'Пи Джей Харви: A dog called money', time: '1ч 42м'},
+          {id: 12, img: film12, name: 'По волнам: Искусство звука в кино', time: '1ч 42м'},
+          {id: 13, img: film13, name: 'Рудбой', time: '1ч 42м'},
+          {id: 14, img: film14, name: 'Скейт — кухня', time: '1ч 42м'},
+          {id: 15, img: film15, name: 'Война искусств', time: '1ч 42м'},
+          {id: 16, img: film16, name: 'Зона', time: '1ч 42м'},
+        ]
+      }
     } else {
       return [
         {id: 1, img: film1, name: '33 слова о дизайне', time: '1ч 42м'},
