@@ -13,7 +13,7 @@ function NavTab({ isOpenNavTab, toggleNavTab }) {
 
   return (
     <aside className={`nav-tab ${isOpenNavTab ? 'nav-tab__open' : ''}`}>
-      <div className='nav-tab__menu'>
+      <nav className='nav-tab__menu'>
         <button
           onClick={toggleNavTab}
           className='nav-tab__close-button hover-element-button'
@@ -35,7 +35,7 @@ function NavTab({ isOpenNavTab, toggleNavTab }) {
             <img className='nav-tab__profile-icon' src={profile} alt='Иконка профиля' />
           </span>
         </button>
-      </div>
+      </nav>
     </aside>
   )
 }

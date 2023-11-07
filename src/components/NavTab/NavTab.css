@@ -24,11 +24,17 @@
 
 .nav-tab__menu {
   margin: 0;
-  padding: 159px 0 88px 0;
+  padding: 136px 0 88px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .nav-tab__menu {
+    padding: 120px 0 46px 0;
+  }
 }
 
 .nav-tab__open {
@@ -36,13 +42,19 @@
 }
 
 .nav-tab__link {
-  margin-top: 22px;
+  margin-top: 28px;
   padding: 0;
   font-size: 18px;
-  line-height: 21.78px;
+  line-height: 1.2;
   font-weight: 500;
   color: #fff;
   text-decoration: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .nav-tab__link {
+    margin-top: 24px;
+  }
 }
 
 .nav-tab__link-used {
@@ -53,7 +65,7 @@
   content: '';
   position: absolute;
   left: 0;
-  bottom: -4px;
+  bottom: -7px;
   width: 100%;
   height: 2px;
   background-color: #fff;
@@ -63,7 +75,7 @@
   margin-top: 621px;
   padding: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   background-color: #202020;
   border: none;
@@ -77,8 +89,14 @@
   box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.08);
 }
 
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .nav-tab__profile-button {
+    margin-top: 444px;
+  }
+}
+
 .nav-tab__profile-round {
-  margin-left: 7px;
+  margin: 0;
   padding: 0;
   background-color: #313131;
   border-radius: 50px;
@@ -104,11 +122,18 @@
   align-items: center;
   background: none;
   border: none;
-  width: 44px;
-  height: 44px;
+  width: 30px;
+  height: 30px;
   position: absolute;
   right: 22.44px;
   top: 22.44px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .nav-tab__close-button {
+    right: 14px;
+    top: 14px;
+  }
 }
 
 .nav-tab__close-icon {
