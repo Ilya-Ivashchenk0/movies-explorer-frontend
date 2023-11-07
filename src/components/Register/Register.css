@@ -131,3 +131,8 @@
     line-height: 14.52px;
   }
 }
+
+.register__logo-link {
+  margin: 0;
+  padding: 0;
+}

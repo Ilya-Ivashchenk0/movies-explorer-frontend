@@ -3,18 +3,6 @@
   padding: 0;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1279px) {
-  .profile {
-    padding-bottom: 6.7vh;
-  }
-}
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .profile {
-    padding-bottom: 25.9vh;
-  }
-}
-
 .profile__overlay {
   display: flex;
   flex-direction: column;

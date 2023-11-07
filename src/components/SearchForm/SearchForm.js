@@ -1,7 +1,7 @@
 import './SearchForm.css'
 import { useState, useEffect } from 'react'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
-import search from '../../../images/search-icon.svg'
+import search from '../../images/search-icon.svg'
 
 function SearchForm() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
@@ -17,28 +17,28 @@ function SearchForm() {
   }, [])
 
   return (
-    <section className="search-form">
+    <form className='search-form'>
       {windowWidth >= 768 ? (
         <>
-          <div className="search-form__panel">
-            <img className="search-form__icon" src={search} alt="search-icon" />
-            <input className="search-form__input" type="text" placeholder="Фильм" />
-            <button className="search-form__button hover-element-button">Найти</button>
+          <div className='search-form__panel'>
+            <img className='search-form__icon' src={search} alt='Иконка поиска' />
+            <input className='search-form__input' type='text' placeholder='Фильм' required />
+            <button className='search-form__button hover-element-button' type='submit'>Найти</button>
             <FilterCheckbox />
           </div>
-          <div className="search-form__line" />
+          <div className='search-form__line' />
         </>
       ) : (
         <>
-          <div className="search-form__panel">
-            <input className="search-form__input" type="text" placeholder="Фильм" />
-            <button className="search-form__button hover-element-button">Найти</button>
+          <div className='search-form__panel'>
+            <input className='search-form__input' type='text' placeholder='Фильм' required />
+            <button className='search-form__button hover-element-button' type='submit'>Найти</button>
           </div>
           <FilterCheckbox />
-          <div className="search-form__line" />
+          <div className='search-form__line' />
         </>
       )}
-    </section>
+    </form>
   )
 }
 

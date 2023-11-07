@@ -75,6 +75,8 @@
   font-size: 13px;
   line-height: 15.73px;
   text-align: right;
+  display: flex;
+  flex-direction: row;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
@@ -89,6 +91,19 @@
   }
 }
 
+.footer__link-element {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .footer__link-element {
+    margin: 0;
+    padding-top: 12px;
+  }
+}
+
 .footer__link {
   margin: 0 0 0 20px;
   padding: 0;
@@ -99,6 +114,5 @@
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .footer__link {
     margin: 0;
-    padding-top: 12px;
   }
 }

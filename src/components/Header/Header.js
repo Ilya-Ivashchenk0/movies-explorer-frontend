@@ -30,28 +30,28 @@ function Header({ toggleNavTab, isOpenNavTab }) {
 
   return (
     <header className='header'>
-      <Link className="header__logo hover-element-link" to='/' />
+      <Link className='header__logo hover-element-link' to='/' />
       {loggedIn && windowWidth > 1279 && (
         <div className='header__dashboard'>
           <div className='header__movies-links'>
             <Link to='/movies' className='header__link hover-element-link'>Фильмы</Link>
             <Link to='/saved-movies' className='header__link hover-element-link'>Сохранённые фильмы</Link>
           </div>
-          <button className='header__profile-button hover-element-button' onClick={goToPofile}>
+          <button className='header__profile-button hover-element-button' onClick={goToPofile} type='submit'>
             Аккаунт
-            <div className='header__profile-round'>
-              <img className='header__profile-icon' src={profile} alt="profile icon" />
-            </div>
+            <span className='header__profile-round'>
+              <img className='header__profile-icon' src={profile} alt='profile icon' />
+            </span>
           </button>
         </div>
       )}
       {!loggedIn && (
-        <div className='header__sign-links'>
+        <nav className='header__sign-links'>
           <Link to='/signup' className='header__link hover-element-link'>Регистрация</Link>
           <Link to='/signin'>
-            <button className='header__signin-button hover-element-button'>Войти</button>
+            <button className='header__signin-button hover-element-button' type='button'>Войти</button>
           </Link>
-        </div>
+        </nav>
       )}
       {loggedIn && windowWidth <= 1279 && (
         <button
@@ -59,6 +59,7 @@ function Header({ toggleNavTab, isOpenNavTab }) {
           onClose={toggleLogin}
           className='header__menu-button hover-element-button'
           aria-label='Иконка меню'
+          type='button'
         >
           <img
             src={burger}
