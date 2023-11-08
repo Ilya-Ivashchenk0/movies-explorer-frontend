@@ -11,7 +11,7 @@ function NavTab({ isOpenNavTab, toggleNavTab }) {
   }
 
   return (
-    <aside className={`nav-tab ${isOpenNavTab ? 'nav-tab__open' : ''}`}>
+    <aside className={`nav-tab ${isOpenNavTab ? 'nav-tab_opened' : ''}`}>
       <nav className='nav-tab__menu'>
         <button
           onClick={toggleNavTab}

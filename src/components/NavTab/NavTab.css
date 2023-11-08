@@ -37,7 +37,7 @@
   }
 }
 
-.nav-tab__open {
+.nav-tab_opened {
   right: 0;
 }
 

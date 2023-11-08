@@ -26,6 +26,7 @@ function Login() {
         <input
           type='password'
           id='password'
+          placeholder='Введите пароль'
           className='login__input'
           minLength='2'
           maxLength='200'
