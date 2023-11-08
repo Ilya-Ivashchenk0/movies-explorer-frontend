@@ -200,6 +200,7 @@
   border: none;
   text-align: right;
   color: #FFFFFF;
+  min-width: 80%;
 }
 
 .profile__input:focus {
