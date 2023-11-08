@@ -16,12 +16,12 @@ function NavTab({ isOpenNavTab, toggleNavTab }) {
         <button
           onClick={toggleNavTab}
           className='nav-tab__close-button hover-element'
-          aria-label='Иконка меню'
+          aria-label='Зарыть меню'
           type='button'
         />
-        <Link className={`nav-tab__link hover-element-link ${location.pathname === '/' ? 'nav-tab__link-used' : ''}`} to='/'>Главная</Link>
-        <Link className={`nav-tab__link hover-element-link ${location.pathname === '/movies' ? 'nav-tab__link-used' : ''}`} to='/movies'>Фильмы</Link>
-        <Link className={`nav-tab__link hover-element-link ${location.pathname === '/saved-movies' ? 'nav-tab__link-used' : ''}`} to='/saved-movies'>Сохранённые фильмы</Link>
+        <Link onClick={toggleNavTab} className={`nav-tab__link hover-element-link ${location.pathname === '/' ? 'nav-tab__link-used' : ''}`} to='/'>Главная</Link>
+        <Link onClick={toggleNavTab} className={`nav-tab__link hover-element-link ${location.pathname === '/movies' ? 'nav-tab__link-used' : ''}`} to='/movies'>Фильмы</Link>
+        <Link onClick={toggleNavTab} className={`nav-tab__link hover-element-link ${location.pathname === '/saved-movies' ? 'nav-tab__link-used' : ''}`} to='/saved-movies'>Сохранённые фильмы</Link>
         <button className='nav-tab__profile-button hover-element' onClick={ goToProfile } type='button'>
           Акаунт
           <span className='nav-tab__profile-round'>

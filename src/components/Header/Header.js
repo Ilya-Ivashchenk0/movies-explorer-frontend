@@ -64,7 +64,7 @@ function Header({ toggleNavTab, isOpenNavTab }) {
           onClick={toggleNavTab}
           onClose={toggleLogin}
           className='header__menu-button hover-element'
-          aria-label='Иконка меню'
+          aria-label='Открыть меню'
           type='button'
         />
       )}
