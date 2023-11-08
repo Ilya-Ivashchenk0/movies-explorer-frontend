@@ -1,0 +1,146 @@
+.nav-tab {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  right: -520px;
+  background-color: #202020;
+  transition: right 0.3s ease-in-out;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .nav-tab {
+    min-width: 520px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .nav-tab {
+    right: -130%;
+    min-width: 100%;
+  }
+}
+
+.nav-tab__menu {
+  margin: 0;
+  padding: 136px 0 88px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .nav-tab__menu {
+    padding: 120px 0 46px 0;
+  }
+}
+
+.nav-tab_opened {
+  right: 0;
+}
+
+.nav-tab__link {
+  margin-top: 28px;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .nav-tab__link {
+    margin-top: 24px;
+  }
+}
+
+.nav-tab__link-used {
+  position: relative;
+}
+
+.nav-tab__link-used::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+}
+
+.nav-tab__profile-button {
+  margin-top: 621px;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #202020;
+  border: none;
+  border-radius: 40px;
+  color: #fff;
+  font-size: 13px;
+  line-height: 12px;
+  font-weight: 500;
+  min-width: 100px;
+  min-height: 32px;
+  box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.08);
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .nav-tab__profile-button {
+    margin-top: 444px;
+  }
+}
+
+.nav-tab__profile-round {
+  margin: 0;
+  padding: 0;
+  background-color: #313131;
+  border-radius: 50px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-tab__profile-icon {
+  margin: 0;
+  padding: 0;
+  width: 10.38px;
+  height: 10.67px;
+}
+
+.nav-tab__close-button {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 22.44px;
+  top: 22.44px;
+  background-image: url(../../images/close.svg);
+  background-size: 100%;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .nav-tab__close-button {
+    right: 14px;
+    top: 14px;
+  }
+}
+
+.nav-tab__close-icon {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}

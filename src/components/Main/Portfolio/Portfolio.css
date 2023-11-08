@@ -1,0 +1,117 @@
+.portfolio {
+  margin: 0;
+  padding: 0 70px;
+  display: flex;
+  flex-direction: column;
+  background-color: #202020;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .portfolio {
+    padding: 0 50px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .portfolio {
+    padding: 0 14px 70px 14px;
+  }
+}
+
+.portfolio__title {
+  margin: 0;
+  padding-bottom: 30px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.2;
+  color: #8B8B8B;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .portfolio__title {
+    padding-bottom: 40px;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.portfolio__list {
+  margin-bottom: 125px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .portfolio__list {
+    margin-bottom: 71px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .portfolio__list {
+    margin: 0;
+  }
+}
+
+.portfolio__band {
+  margin: 0;
+  padding-bottom: 19px;
+  list-style-type: none;
+  border-bottom: 1px solid #424242;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .portfolio__band {
+    align-items: self-start;
+  }
+}
+
+.portfolio__band_type_underlined-none {
+  border: none;
+}
+
+.portfolio__link {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 1.7;
+  letter-spacing: -1.2px;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 50px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: -0.7px;
+  }
+}
+
+.portfolio__icon {
+  margin: 0;
+  padding: 5px 5px 0 0;
+  width: 18px;
+  height: 18px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .portfolio__icon {
+    width: 10px;
+    height: 10px;
+  }
+}

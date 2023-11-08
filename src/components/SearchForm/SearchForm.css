@@ -1,0 +1,109 @@
+.search-form {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.search-form__panel {
+  margin: 70px;
+  padding: 0;
+  min-height: 72px;
+  background-color: #2F2F2F;
+  border-radius: 9px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .search-form__panel {
+    margin: 80px 30px 109px 30px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .search-form__panel {
+    margin: 80px 10px 45px 10px;
+  }
+}
+
+.search-form__panel_type_focused {
+  box-shadow: 0 3px 14px 0 rgba(47, 47, 47, 0.8);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.search-form__icon {
+  margin: 0 10px 0 19px;
+  padding: 0;
+  width: 34px;
+  height: 34px;
+}
+
+.search-form__input {
+  margin: 0;
+  padding: 0;
+  background-color: #2F2F2F;
+  width: 100%;
+  border: none;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #fff;
+}
+
+.search-form__input::placeholder {
+  color: #8B8B8B;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .search-form__input {
+    font-size: 14px;
+    padding-left: 19px;
+  }
+}
+
+.search-form__input:focus {
+  outline: none;
+  background-color: #2F2F2F;
+}
+
+.search-form__button {
+  margin-left: 21.35px;
+  min-width: 58.65px;
+  min-height: 34px;
+  background-color: #4285F4;
+  color: #fff;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 500;
+  border-radius: 20px;
+  border: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .search-form__button {
+    margin: 19px;
+  }
+}
+
+.search-form__line {
+  margin: 0 70px 10px 70px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #424242;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .search-form__line {
+    margin: 0 30px 10px 30px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .search-form__line {
+    margin: 0 14px 10px 14px;
+  }
+}

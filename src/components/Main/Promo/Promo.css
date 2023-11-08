@@ -1,0 +1,82 @@
+.promo {
+  margin: 0;
+  padding: 0 70px;
+  display: flex;
+  flex-direction: column;
+  min-height: 560px;
+  background-color: #073042;
+  background-image: url(../../../images/landing-logo.svg);
+  background-size: 722px 244px;
+  background-repeat: no-repeat;
+  background-position: bottom 60px right 70px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .promo {
+    align-items: center;
+    padding: 0 30px 0 30px;
+    min-height: 844px;
+    background-position: center bottom 70px;
+    background-size: 680px 230px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .promo {
+    padding: 0;
+    min-height: 630px;
+    align-items: center;
+    background-position: center bottom 27px;
+  }
+}
+
+.promo__title {
+  margin: 50px 0 102px 0;
+  padding: 0;
+  max-width: 626px;
+  color: #FFFFFF;
+  font-size: 40px;
+  line-height: 1.3;
+  font-weight: 400;
+  letter-spacing: -1.6px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .promo__title {
+    margin: 300px auto 140px auto;
+    text-align: center;
+    max-width: 680px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .promo__title {
+    margin: 183px 10px 330px 10px;
+    max-width: 300px;
+    text-align: center;
+    font-size: 31px;
+    line-height: 39px;
+    letter-spacing: -1.2px;
+  }
+}
+
+.promo__logo {
+  margin-bottom: 60px;
+  max-width: 722px;
+  opacity: 70%;
+  position: relative;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1279px) {
+  .promo__logo {
+    padding-bottom: 70px;
+    max-width: 680px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .promo__logo {
+    max-height: 230px;
+    transform: scale(1,2);
+  }
+}
