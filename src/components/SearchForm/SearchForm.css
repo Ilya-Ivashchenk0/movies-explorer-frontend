@@ -31,6 +31,7 @@
 
 .search-form__panel_type_focused {
   box-shadow: 0 3px 14px 0 rgba(47, 47, 47, 0.8);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .search-form__icon {
