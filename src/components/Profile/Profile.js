@@ -6,7 +6,7 @@ function Profile() {
   const navigate = useNavigate()
 
   const [isEditing, setIsEditing] = useState(true)
-  const [validateError] = useState(true)
+  const [validateError] = useState(false)
 
   const handleEdit = () => {
     setIsEditing(!isEditing)
@@ -28,10 +28,10 @@ function Profile() {
               type='text'
               id='username'
               placeholder='Ваше имя'
-              value='Виталий'
+              defaultValue='Виталий'
               minLength='2'
               maxLength='30'
-              disabled={isEditing}
+              disabled={!isEditing}
               required
             />
           </div>
@@ -42,10 +42,10 @@ function Profile() {
               type='email'
               id='email'
               placeholder='Ваш email'
-              value={'pochta@yandex.ru'}
+              defaultValue={'pochta@yandex.ru'}
               minLength='2'
               maxLength='40'
-              disabled={isEditing}
+              disabled={!isEditing}
               required
             />
           </div>
