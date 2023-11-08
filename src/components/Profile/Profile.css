@@ -70,6 +70,10 @@
   border-bottom: 1px solid #424242;
 }
 
+.profile__name_focused {
+  border-bottom: 1px solid #4285F4;
+}
+
 .profile__email {
   margin-top: 17px;
   padding: 0;

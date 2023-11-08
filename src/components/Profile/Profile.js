@@ -7,6 +7,7 @@ function Profile() {
 
   const [isEditing, setIsEditing] = useState(true)
   const [validateError] = useState(false)
+  const [isInputFocused, setIsInputFocused] = useState(false)
 
   const handleEdit = () => {
     setIsEditing(!isEditing)
@@ -16,14 +17,24 @@ function Profile() {
     navigate('/')
   }
 
+  const handleInputFocus = () => {
+    setIsInputFocused(true)
+  }
+
+  const handleInputBlur = () => {
+    setIsInputFocused(false)
+  }
+
   return (
     <main className='profile'>
       <section className='profile__secion'>
         <h1 className='profile__hello'>Привет, Виталий!</h1>
         <form className='profile__form' name='pofile' noValidate>
-          <div className='profile__name'>
+          <div className={`profile__name ${isInputFocused ? 'profile__name_focused' : ''}`}>
             <label className='profile__label' htmlFor='username'>Имя</label>
             <input
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
               className='profile__input'
               type='text'
               id='username'
@@ -38,6 +49,8 @@ function Profile() {
           <div className='profile__email'>
             <label className='profile__label' htmlFor='email'>E-mail</label>
             <input
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
               className='profile__input'
               type='email'
               id='email'
