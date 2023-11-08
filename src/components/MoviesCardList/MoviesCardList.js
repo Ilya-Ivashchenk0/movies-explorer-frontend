@@ -73,7 +73,7 @@ function MoviesCardList() {
 
   return (
     <section className='movies-card-list'>
-      <div className='movies-card-list__grid'>
+      <ul className='movies-card-list__grid'>
         {cards().map((card) => (
           <MoviesCard
             key={card.id}
@@ -82,7 +82,7 @@ function MoviesCardList() {
             time={card.time}
           />
         ))}
-      </div>
+      </ul>
     </section>
   )
 }

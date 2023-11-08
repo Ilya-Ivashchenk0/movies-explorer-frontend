@@ -11,7 +11,7 @@ function FilterCheckbox() {
   const circleClass = short ? 'filter-checkbox__circle filter-checkbox__circle_type_left' : 'filter-checkbox__circle filter-checkbox__circle_type_right'
 
   return (
-    <div className="filter-checkbox">
+    <div className="filter-checkbox hover-element">
       <div className="filter-checkbox__switch" onClick={toggleCircle}>
         <div className={circleClass} />
       </div>

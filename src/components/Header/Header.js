@@ -1,17 +1,25 @@
 import './Header.css'
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import burger from '../../images/burger.svg'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import profile from '../../images/profile.svg'
 
 function Header({ toggleNavTab, isOpenNavTab }) {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const [loggedIn, setLoggedIn] = useState(true)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
   const toggleLogin = () => {
     setLoggedIn(true)
+  }
+
+  const isMain = () => {
+    if (location.pathname === '/') {
+      return true
+    } else {
+      return false
+    }
   }
 
   useEffect(() => {
@@ -29,7 +37,7 @@ function Header({ toggleNavTab, isOpenNavTab }) {
   }
 
   return (
-    <header className='header'>
+    <header className={`header ${isMain() ? 'header_type_main' : ''}`}>
       <Link className='header__logo hover-element-link' to='/' />
       {loggedIn && windowWidth > 1279 && (
         <div className='header__dashboard'>
@@ -37,10 +45,10 @@ function Header({ toggleNavTab, isOpenNavTab }) {
             <Link to='/movies' className='header__link hover-element-link'>Фильмы</Link>
             <Link to='/saved-movies' className='header__link hover-element-link'>Сохранённые фильмы</Link>
           </div>
-          <button className='header__profile-button hover-element-button' onClick={goToPofile} type='submit'>
+          <button className='header__profile-button hover-element' onClick={goToPofile} type='submit'>
             Аккаунт
             <span className='header__profile-round'>
-              <img className='header__profile-icon' src={profile} alt='profile icon' />
+              <img className='header__profile-icon' src={profile} alt='Иконка профиля' />
             </span>
           </button>
         </div>
@@ -48,25 +56,17 @@ function Header({ toggleNavTab, isOpenNavTab }) {
       {!loggedIn && (
         <nav className='header__sign-links'>
           <Link to='/signup' className='header__link hover-element-link'>Регистрация</Link>
-          <Link to='/signin'>
-            <button className='header__signin-button hover-element-button' type='button'>Войти</button>
-          </Link>
+          <Link to='/signin' className='header__signin-button hover-element'>Войти</Link>
         </nav>
       )}
       {loggedIn && windowWidth <= 1279 && (
         <button
           onClick={toggleNavTab}
           onClose={toggleLogin}
-          className='header__menu-button hover-element-button'
+          className='header__menu-button hover-element'
           aria-label='Иконка меню'
           type='button'
-        >
-          <img
-            src={burger}
-            alt='Открыть меню'
-            className='header__menu-icon'
-          />
-        </button>
+        />
       )}
     </header >
   )

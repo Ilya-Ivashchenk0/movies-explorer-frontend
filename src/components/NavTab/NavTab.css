@@ -127,6 +127,8 @@
   position: absolute;
   right: 22.44px;
   top: 22.44px;
+  background-image: url(../../images/close.svg);
+  background-size: 100%;
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {

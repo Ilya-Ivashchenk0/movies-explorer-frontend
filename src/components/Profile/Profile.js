@@ -1,18 +1,12 @@
 import './Profile.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Header from '../Header/Header'
-import NavTab from '../NavTab/NavTab'
 
 function Profile() {
   const navigate = useNavigate()
 
-  const [isOpenNavTab, setIsOpenNavTab] = useState(false)
   const [isEditing, setIsEditing] = useState(true)
-
-  const toggleNavTab = () => {
-    setIsOpenNavTab(!isOpenNavTab)
-  }
+  const [validateError] = useState(true)
 
   const handleEdit = () => {
     setIsEditing(!isEditing)
@@ -24,8 +18,7 @@ function Profile() {
 
   return (
     <main className='profile'>
-      <Header toggleNavTab={toggleNavTab} isOpenNavTab={isOpenNavTab} />
-      <div className={`profile__overlay ${isOpenNavTab ? 'profile__overlay_type_active' : ''}`}>
+      <section className='profile__secion'>
         <h1 className='profile__hello'>Привет, Виталий!</h1>
         <form className='profile__form' name='pofile' noValidate>
           <div className='profile__name'>
@@ -34,6 +27,7 @@ function Profile() {
               className='profile__input'
               type='text'
               id='username'
+              placeholder='Ваше имя'
               value='Виталий'
               minLength='2'
               maxLength='30'
@@ -47,6 +41,7 @@ function Profile() {
               className='profile__input'
               type='email'
               id='email'
+              placeholder='Ваш email'
               value={'pochta@yandex.ru'}
               minLength='2'
               maxLength='40'
@@ -54,11 +49,20 @@ function Profile() {
               required
             />
           </div>
+          {!isEditing && (
+            <>
+              <button onClick={handleEdit} className='profile__edit-button hover-element' type='button'>Редактировать</button>
+              <button onClick={signout} className='profile__signout-button hover-element' type='button'>Выйти из аккаунта</button>
+            </>
+          )}
+          {isEditing && (
+            <>
+              <span className={`${validateError ? 'profile__error-visable' : 'profile__error'}`}>При обновлении профиля произошла ошибка.</span>
+              <button disabled={validateError} className={`profile__save-button ${validateError ? 'profile__save-button_disabled' : 'hover-element'}`}>Сохранить</button>
+            </>
+          )}
         </form>
-        <button onClick={handleEdit} className='profile__edit-button hover-element-button' type='button'>Редактировать</button>
-        <button onClick={signout} className='profile__signout-button hover-element-button' type='button'>Выйти из аккаунта</button>
-      </div>
-      <NavTab isOpenNavTab={isOpenNavTab} toggleNavTab={toggleNavTab} />
+      </section>
     </main>
   )
 }

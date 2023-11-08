@@ -11,28 +11,25 @@
   min-height: 100vh;
 }
 
-.validate-error {
-  min-height: 12px;
-  visibility: hidden;
+.app__overlay {
+  margin: 0;
+  padding: 0;
 }
 
-.validate-error__visible {
-  margin-top: 6px;
-  min-height: 12px;
-  color: #EE3465;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 12.1px;
+.app__active-overlay {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 30%;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease-in-out;
 }
 
-.hover-element-button:hover {
+.hover-element:hover {
   cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.7s ease-in-out;
-}
-
-.hover-element-link:hover {
-  cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.75;
   transition: opacity 0.7s ease-in-out;
 }
