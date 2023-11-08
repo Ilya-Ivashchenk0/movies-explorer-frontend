@@ -5,6 +5,7 @@ import search from '../../images/search-icon.svg'
 
 function SearchForm() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [isInputFocused, setIsInputFocused] = useState(false)
 
   useEffect(() => {
     const handleResize = () => { // обработчик изменения размера окна
@@ -16,13 +17,21 @@ function SearchForm() {
     }
   }, [])
 
+  const handleInputFocus = () => {
+    setIsInputFocused(true)
+  }
+
+  const handleInputBlur = () => {
+    setIsInputFocused(false)
+  }
+
   return (
     <form className='search-form'>
       {windowWidth >= 768 ? (
         <>
-          <div className='search-form__panel'>
+          <div className={`search-form__panel ${isInputFocused ? 'search-form__panel_type_focused' : ''}`}>
             <img className='search-form__icon' src={search} alt='Иконка поиска' />
-            <input className='search-form__input' type='text' placeholder='Фильм' required />
+            <input onFocus={handleInputFocus} onBlur={handleInputBlur} className='search-form__input' type='text' placeholder='Фильм' required />
             <button className='search-form__button hover-element' type='submit'>Найти</button>
             <FilterCheckbox />
           </div>
@@ -30,8 +39,8 @@ function SearchForm() {
         </>
       ) : (
         <>
-          <div className='search-form__panel'>
-            <input className='search-form__input' type='text' placeholder='Фильм' required />
+          <div className={`search-form__panel ${isInputFocused ? 'search-form__panel_type_focused' : ''}`}>
+            <input onFocus={handleInputFocus} onBlur={handleInputBlur} className='search-form__input' type='text' placeholder='Фильм' required />
             <button className='search-form__button hover-element' type='submit'>Найти</button>
           </div>
           <FilterCheckbox />
