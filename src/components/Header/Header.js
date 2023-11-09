@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import profile from '../../images/profile.svg'
 
-function Header({ toggleNavTab, loggedIn }) {
+const Header = ({ toggleNavTab, loggedIn }) => {
   const navigate = useNavigate()
   const location = useLocation()
 

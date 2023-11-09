@@ -10,14 +10,12 @@ const Login = ({setLoggedIn}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  function handleChangeEmail(e) {
+  const handleChangeEmail = (e) => {
     setEmail(e.target.value)
-    // setEmailError(validateEmail(e.target.value)) // валидация инпута
   }
 
-  function handleChangePassword(e) {
+  const handleChangePassword = (e) => {
     setPassword(e.target.value)
-    // setPasswordError(validatePassword(e.target.value)) // валидация инпута
   }
 
   const handleSubmit = (e) => {

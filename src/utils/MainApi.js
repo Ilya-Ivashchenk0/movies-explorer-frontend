@@ -12,7 +12,17 @@ class MainApi {
     }
     return res.json()
   }
-  
+
+  setUserInfo({name, email}) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: this._headers,
+      body: JSON.stringify({ name, email })
+    })
+      .then(this._getResponseData)
+  }
+
 }
 
 export const api = new MainApi({

@@ -2,7 +2,7 @@ import './MoreMovies.css'
 import { useState } from 'react'
 import Preloader from '../../Preloader/Preloader'
 
-function MoreMovies() {
+const MoreMovies = () => {
   const [loading, setLoading] = useState(false)
 
   const handleButtonClick = () => {

@@ -2,7 +2,7 @@ import './NavTab.css'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import profile from '../../images/profile.svg'
 
-function NavTab({ isOpenNavTab, toggleNavTab }) {
+const NavTab = ({ isOpenNavTab, toggleNavTab }) => {
   const location = useLocation()
   const navigate = useNavigate()
 

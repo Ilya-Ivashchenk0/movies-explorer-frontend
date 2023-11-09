@@ -3,7 +3,7 @@ import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import MoreMovies from './MoreMovies/MoreMovies'
 
-function Movies() {
+const Movies = () => {
   return (
     <main className='movies'>
       <SearchForm />

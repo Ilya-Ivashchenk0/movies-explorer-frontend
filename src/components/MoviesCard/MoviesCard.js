@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import voidHeart from '../../images/void-heart.svg'
 import fullHeart from '../../images/full-heart.svg'
 
-function MoviesCard({ img, name, time }) {
+const MoviesCard = ({ img, name, time }) => {
   const location = useLocation()
 
   const icon = () => {

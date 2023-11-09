@@ -207,3 +207,13 @@
   outline: none;
   border: none;
 }
+
+.profile__edit-success {
+  margin: 0;
+  padding: 0;
+  color: #36B37E;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}

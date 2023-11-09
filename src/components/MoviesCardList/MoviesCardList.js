@@ -18,7 +18,7 @@ import film14 from '../../images/film-14.png'
 import film15 from '../../images/film-15.png'
 import film16 from '../../images/film-16.png'
 
-function MoviesCardList() {
+const MoviesCardList = () => {
   const location = useLocation()
 
   const cards = () => {

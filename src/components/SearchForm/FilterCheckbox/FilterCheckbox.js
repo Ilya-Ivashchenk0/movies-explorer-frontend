@@ -1,7 +1,7 @@
 import './FilterCheckbox.css'
 import { useState } from 'react'
 
-function FilterCheckbox() {
+const FilterCheckbox = () => {
   const [short, setShort] = useState(false)
 
   const toggleCircle = () => {

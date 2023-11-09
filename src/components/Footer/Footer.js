@@ -1,8 +1,7 @@
 import './Footer.css'
 
-function Footer() {
+const Footer = () => {
   const year = new Date().getFullYear()
-
   return (
     <footer className='footer'>
       <p className='footer__heading'>Учебный проект Яндекс.Практикум х BeatFilm.</p>

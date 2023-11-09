@@ -3,7 +3,7 @@ import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import VoidBlock from './VoidBlock/VoidBlock'
 
-function SavedMovies() {
+const SavedMovies = () => {
   return (
     <main className='saved-movies'>
       <SearchForm />

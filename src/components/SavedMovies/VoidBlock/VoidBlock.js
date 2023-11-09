@@ -1,6 +1,6 @@
 import './VoidBlock.css'
 
-function VoidBlock() {
+const VoidBlock = () => {
   return (
     <section className='void-block' />
   )

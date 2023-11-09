@@ -1,7 +1,7 @@
 import './Portfolio.css'
 import arrow from '../../../images/arrow.svg'
 
-function Portfolio() {
+const Portfolio = () => {
   return (
     <section className='portfolio'>
       <h4 className='portfolio__title'>Портфолио</h4>
