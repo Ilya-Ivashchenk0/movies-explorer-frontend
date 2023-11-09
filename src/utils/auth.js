@@ -8,13 +8,13 @@ function getResponseData(res) {
   return res.json()
 }
 
-export const register = (email, password) => {
+export const register = (name, email, password) => {
   return fetch(`${baseUrl()}/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({email, password})
+    body: JSON.stringify({name, email, password})
   })
   .then((res) => {
     return getResponseData(res)
@@ -48,9 +48,9 @@ export const authorize = () => {
   })
 }
 
-export const logout = () => {
-  return fetch(`${baseUrl()}/logout`, {
-    method: 'POST',
+export const signout = () => {
+  return fetch(`${baseUrl()}/signout`, {
+    method: 'DELETE',
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json'

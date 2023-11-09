@@ -1,13 +1,45 @@
 import './Register.css'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../images/logo.svg'
+import { register, login } from '../../utils/auth'
 
-function Register() {
-  const submitForm = () => {
-    console.log('submit')
+const Register = ({setLoggedIn}) => {
+  const navigate = useNavigate()
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  function handleChangeName(e) {
+    setName(e.target.value)
+    // setEmailError(validateEmail(e.target.value)) // валидация инпута
   }
 
-  const errorMessage = 'Что-то пошло не так...'
+  function handleChangeEmail(e) {
+    setEmail(e.target.value)
+    // setEmailError(validateEmail(e.target.value)) // валидация инпута
+  }
+
+  function handleChangePassword(e) {
+    setPassword(e.target.value)
+    // setPasswordError(validatePassword(e.target.value)) // валидация инпута
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    register(name, email, password)
+      .then(() => {
+        login(email, password)
+          .then(() => {
+            setLoggedIn(true)
+            navigate('/movies')
+          })
+          .catch((e) => console.log(e))
+      })
+      .catch((e) => console.log(e))
+  }
 
   return (
     <main className='register'>
@@ -15,25 +47,27 @@ function Register() {
         <img className='register__logo hover-element' src={logo} alt='Логотип' />
       </Link>
       <h1 className='register__hello'>Добро пожаловать!</h1>
-      <form className='register__form' onSubmit={submitForm} name='register' noValidate>
+      <form className='register__form' onSubmit={handleSubmit} name='register' noValidate>
         <label className='register__heading' htmlFor='name'>Имя</label>
         <input
           type='text'
           id='name'
-          defaultValue={'Виталий'}
-          autoComplete="username"
+          value={name}
+          onChange={handleChangeName}
+          autoComplete="name"
           className='register__input'
           placeholder='Введите имя'
           minLength='2'
           maxLength='30'
           required
         />
-        <span className='register__error'>{errorMessage}</span>
+        <span className='register__error'></span>
         <label className='register__heading' htmlFor='email'>E-mail</label>
         <input
           type='email'
           id='email'
-          defaultValue={'pochta@yandex.ru'}
+          value={email}
+          onChange={handleChangeEmail}
           autoComplete='email'
           className='register__input'
           placeholder='Введите email'
@@ -41,12 +75,13 @@ function Register() {
           maxLength='40'
           required
         />
-        <span className='register__error'>{errorMessage}</span>
+        <span className='register__error'></span>
         <label className='register__heading' htmlFor='password'>Пароль</label>
         <input
           type='password'
           id='password'
-          defaultValue={'11111111111111'}
+          value={password}
+          onChange={handleChangePassword}
           autoComplete="current-password"
           className='register__input register__input-error'
           placeholder='Введите пароль'
@@ -54,7 +89,7 @@ function Register() {
           maxLength='200'
           required
         />
-        <span className='register__error-visible'>{errorMessage}</span>
+        <span className='register__error-visible'></span>
         <button className='register__button hover-element' type='submit'>Зарегистрироваться</button>
         <p className='register__question'>Уже зарегистрированы?<Link className='register__signin hover-element-link' to='/signin'>Войти</Link></p>
       </form>

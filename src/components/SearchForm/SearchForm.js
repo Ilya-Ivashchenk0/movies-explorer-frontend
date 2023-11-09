@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import search from '../../images/search-icon.svg'
 
-function SearchForm() {
+const SearchForm = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [isInputFocused, setIsInputFocused] = useState(false)
 
@@ -27,26 +27,22 @@ function SearchForm() {
 
   return (
     <form className='search-form'>
-      {windowWidth >= 768 ? (
-        <>
-          <div className={`search-form__panel ${isInputFocused ? 'search-form__panel_type_focused' : ''}`}>
-            <img className='search-form__icon' src={search} alt='Иконка поиска' />
-            <input onFocus={handleInputFocus} onBlur={handleInputBlur} className='search-form__input' type='text' placeholder='Фильм' required />
-            <button className='search-form__button hover-element' type='submit'>Найти</button>
-            <FilterCheckbox />
-          </div>
-          <div className='search-form__line' />
-        </>
-      ) : (
-        <>
-          <div className={`search-form__panel ${isInputFocused ? 'search-form__panel_type_focused' : ''}`}>
-            <input onFocus={handleInputFocus} onBlur={handleInputBlur} className='search-form__input' type='text' placeholder='Фильм' required />
-            <button className='search-form__button hover-element' type='submit'>Найти</button>
-          </div>
-          <FilterCheckbox />
-          <div className='search-form__line' />
-        </>
-      )}
+      <div className={`search-form__panel ${isInputFocused ? 'search-form__panel_type_focused' : ''}`}>
+        <img className='search-form__icon' src={search} alt='Иконка поиска' />
+        <input
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          name='movie'
+          className='search-form__input'
+          type='text'
+          placeholder='Фильм'
+          required
+        />
+        <button className='search-form__button hover-element' type='submit'>Найти</button>
+        {windowWidth >= 768 && (<FilterCheckbox />)}
+      </div>
+      {windowWidth <= 767 && (<FilterCheckbox />)}
+      <div className='search-form__line' />
     </form>
   )
 }

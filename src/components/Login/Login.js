@@ -1,20 +1,49 @@
 import './Login.css'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { login } from '../../utils/auth'
 import logo from '../../images/logo.svg'
 
-function Login() {
+const Login = ({setLoggedIn}) => {
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  function handleChangeEmail(e) {
+    setEmail(e.target.value)
+    // setEmailError(validateEmail(e.target.value)) // валидация инпута
+  }
+
+  function handleChangePassword(e) {
+    setPassword(e.target.value)
+    // setPasswordError(validatePassword(e.target.value)) // валидация инпута
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    login(email, password)
+      .then(() => {
+        setLoggedIn(true)
+        navigate('/')
+      })
+      .catch((e) => console.log(e))
+  }
+
   return (
     <main className='login'>
       <Link to='/'>
         <img className='login__logo hover-element' src={logo} alt='Логотип' />
       </Link>
       <h1 className='login__hello'>Рады видеть!</h1>
-      <form className='login__form' name='login'>
+      <form className='login__form' onSubmit={handleSubmit} name='login'>
         <label className='login__heading' htmlFor='email'>E-mail</label>
         <input
-          type='text'
+          type='email'
           id='email'
-          defaultValue={'pochta@yandex.ru'}
+          onChange={handleChangeEmail}
+          autoComplete="email"
           className='login__input'
           placeholder='Введите email'
           minLength='2'
@@ -26,6 +55,8 @@ function Login() {
         <input
           type='password'
           id='password'
+          onChange={handleChangePassword}
+          autoComplete="current-password"
           placeholder='Введите пароль'
           className='login__input'
           minLength='2'

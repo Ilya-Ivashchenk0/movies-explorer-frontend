@@ -8,6 +8,7 @@ function NavTab({ isOpenNavTab, toggleNavTab }) {
 
   const goToProfile = () => {
     navigate('/profile')
+    toggleNavTab()
   }
 
   return (

@@ -3,16 +3,11 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import profile from '../../images/profile.svg'
 
-function Header({ toggleNavTab, isOpenNavTab }) {
+function Header({ toggleNavTab, loggedIn }) {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [loggedIn, setLoggedIn] = useState(true)
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
-  const toggleLogin = () => {
-    setLoggedIn(true)
-  }
 
   const isMain = () => {
     if (location.pathname === '/') {
@@ -62,7 +57,6 @@ function Header({ toggleNavTab, isOpenNavTab }) {
       {loggedIn && windowWidth <= 1279 && (
         <button
           onClick={toggleNavTab}
-          onClose={toggleLogin}
           className='header__menu-button hover-element'
           aria-label='Открыть меню'
           type='button'
