@@ -1,14 +1,22 @@
 import './FilterCheckbox.css'
 import { useState } from 'react'
 
-const FilterCheckbox = () => {
+const FilterCheckbox = ({ toggleFilterShortMoviesFalse, toggleFilterShortMoviesTrue }) => {
   const [short, setShort] = useState(false)
 
   const toggleCircle = () => {
-    setShort(!short)
+    if (!short) {
+      setShort(true)
+      toggleFilterShortMoviesTrue()
+    } else {
+      setShort(false)
+      toggleFilterShortMoviesFalse()
+    }
   }
 
-  const circleClass = short ? 'filter-checkbox__circle filter-checkbox__circle_type_left' : 'filter-checkbox__circle filter-checkbox__circle_type_right'
+  const circleClass = short
+    ? 'filter-checkbox__circle filter-checkbox__circle_type_left'
+    : 'filter-checkbox__circle filter-checkbox__circle_type_right'
 
   return (
     <div className="filter-checkbox hover-element">

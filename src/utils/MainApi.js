@@ -13,7 +13,7 @@ class MainApi {
     return res.json()
   }
 
-  setUserInfo({name, email}) {
+  setUserInfo({ name, email }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       credentials: 'include',
@@ -25,7 +25,7 @@ class MainApi {
 
 }
 
-export const api = new MainApi({
+export const mainApi = new MainApi({
   baseUrl: baseUrl(),
   headers: {
     'Content-Type': 'application/json'
