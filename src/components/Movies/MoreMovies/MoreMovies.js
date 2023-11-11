@@ -11,7 +11,7 @@ const MoreMovies = ({ isMoreMovies, loadMoreMovies }) => {
     setTimeout(() => {
       loadMoreMovies()
       setLoading(false)
-    }, 3000)
+    }, 500)
   }
 
 
