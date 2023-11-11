@@ -1,16 +1,9 @@
 import './MoviesCardList.css'
-import { useLocation } from 'react-router-dom'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 
-const MoviesCardList = ({ movies, beginSearch, isFilterShortMovies }) => {
-  const location = useLocation()
-
-  const filterMovies = () => {
-    if (!movies) {
-      return 'Ничего не найдено'
-    }
-
+const MoviesCardList = ({ movies, visibleMovies, beginSearch, isFilterShortMovies, notification }) => {
+  const filterShortMovies = () => {
     if (isFilterShortMovies) {
       return movies.filter(movie => movie.duration > 40)
     }
@@ -20,42 +13,21 @@ const MoviesCardList = ({ movies, beginSearch, isFilterShortMovies }) => {
 
   return (
     <section className='movies-card-list'>
-      {!movies && beginSearch && (
+      {!movies && beginSearch && !notification && (
         <Preloader />
       )}
       {movies && (
-        <ul className={`movies-card-list__grid ${filterMovies().length <= 0 ? 'movies-card-list__grid_void' : ''}`}>
-          {filterMovies().length > 0 ? filterMovies().map((movie) => (
+        <ul className={`movies-card-list__grid ${filterShortMovies().length <= 0 ? 'movies-card-list__grid_void' : ''}`}>
+          {filterShortMovies().length > 0 && filterShortMovies().slice(0, visibleMovies).map((movie) => (
             <MoviesCard key={movie.id} movie={movie} />
-          )) : (
-            <p className='movies-card-list__not-found'>Ничего не найдено</p>
-          )}
+          ))}
         </ul>
+      )}
+      {!movies && notification && (
+        <p className='movies-card-list__not-found'>{ notification }</p>
       )}
     </section>
   )
 }
 
 export default MoviesCardList
-
-  // const cards = () => {
-  //   if (location.pathname === '/movies') {
-  //     if (window.innerWidth <= 767) {
-  //       return [
-  //
-  //       ]
-  //     } else if (window.innerWidth === 768) {
-  //       return [
-  //
-  //       ]
-  //     } else {
-  //       return [
-  //
-  //       ]
-  //     }
-  //   } else {
-  //     return [
-  //
-  //     ]
-  //   }
-  // }
