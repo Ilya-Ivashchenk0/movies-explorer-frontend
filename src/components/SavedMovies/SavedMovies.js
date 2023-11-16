@@ -25,14 +25,18 @@ const SavedMovies = ({
   const searchMovies = () => {
     const results = searchFilter(savedMovies, searchQuery, location.pathname)
 
+    localStorage.removeItem('savedSearchResultsSaved')
+
     if (results.length < 1) {
-      setNotification('Ничего не найдено')
-      setSearchResults(results)
-      localStorage.setItem('savedSearchResultsSaved', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: results })) // сохраняем запрос с результатами локально
+      setNotification(consts.notFoundMessage)
     } else {
-      setSearchResults(results)
-      localStorage.setItem('savedSearchResultsSaved', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: results })) // сохраняем запрос с результатами локально
+      setNotification('')
     }
+    if (savedMovies.length < 1) {
+      setNotification(consts.notSavedMoviesMessage)
+    }
+    setSearchResults(results)
+    localStorage.setItem('savedSearchResultsSaved', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: results })) // сохраняем запрос с результатами локально
   }
 
   useEffect(() => {
@@ -45,10 +49,20 @@ const SavedMovies = ({
       if (localResults.searchResults.length < 1) {
         setNotification(consts.notFoundMessage)
       }
+      if (savedMovies.length < 1) {
+        setNotification(consts.notSavedMoviesMessage)
+        setSearchResults(savedMovies)
+      }
     } else {
       setSearchResults(savedMovies)
     }
   }, [savedMovies])
+
+  useEffect(() => {
+    if (searchResults.length === 0) {
+      localStorage.removeItem('savedSearchResultsSaved')
+    }
+  }, [searchResults])
 
   return (
     <main className='saved-movies'>
@@ -61,6 +75,7 @@ const SavedMovies = ({
       />
       <MoviesCardList
         searchResults={searchResults}
+        setSearchResults={setSearchResults}
         savedMovies={savedMovies}
         setSavedMovies={setSavedMovies}
         isFilterShortMovies={isFilterShortMovies}

@@ -5,7 +5,13 @@ import fullHeart from '../../images/full-heart.svg'
 import deleteIcon from '../../images/delete-icon.svg'
 import { mainApi } from '../../utils/MainApi'
 
-const MoviesCard = ({ movie, savedMovies, setSavedMovies }) => {
+const MoviesCard = ({
+  movie,
+  savedMovies,
+  setSavedMovies,
+  searchResults,
+  setSearchResults
+}) => {
   const location = useLocation()
 
   const convertDuration = () => {
@@ -57,9 +63,12 @@ const MoviesCard = ({ movie, savedMovies, setSavedMovies }) => {
 
   const handleDeleteLike = () => {
     mainApi.deleteLike(movie._id)
-      .then(message => {
+      .then(err => {
         setSavedMovies(savedMovies.filter(savedMovie => savedMovie._id !== movie._id))
         movie.isLiked = false
+        if (setSearchResults) {
+          setSearchResults(searchResults.filter(m => m.id === movie.movieId))
+        }
       })
   }
 

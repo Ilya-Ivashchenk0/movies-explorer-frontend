@@ -36,6 +36,7 @@ const Profile = ({ setLoggedIn }) => {
 
   const logout = () => {
     localStorage.removeItem('savedSearchResults')
+    localStorage.removeItem('savedSearchResultsSaved')
     signout()
       .then(() => {
         setLoggedIn(false)
@@ -58,7 +59,6 @@ const Profile = ({ setLoggedIn }) => {
         setIsEditSuccessful(true)
       })
       .catch((err) => {
-        console.log(`Ошибка: ${err}`)
         setIsEditSuccessful(false)
         setEditDone(consts.failedUpdateMessage)
       })
