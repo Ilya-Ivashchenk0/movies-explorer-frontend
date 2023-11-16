@@ -38,7 +38,7 @@ const App = () => {
         setLoggedIn(true)
         setCurrentUser(res.data)
       })
-      .catch(err => console.log(`Ошибка: ${err}`))
+      .catch(err => console.log(err))
       .finally(() => setIsLoadingRoutes(false))
   }
 
