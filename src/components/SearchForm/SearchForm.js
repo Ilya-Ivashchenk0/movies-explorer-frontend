@@ -1,19 +1,18 @@
 import './SearchForm.css'
-import { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import search from '../../images/search-icon.svg'
 
 const SearchForm = ({
-    searchMovies,
-    setBeginSearch,
-    toggleFilterShortMoviesFalse,
-    toggleFilterShortMoviesTrue,
-    onSearchChange
-  }) => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  searchMovies,
+  setIsFilterShortMovies,
+  searchQuery,
+  setSearchQuery
+}) => {
+  const windowWidth = React.useContext(WindowWidthContext)
+
   const [isInputFocused, setIsInputFocused] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('') // значение 
-  const [isFirstSearch, setIsFirstSearch] = useState(true) // состояние первого поиска
 
   const handleInputFocus = () => { // состояние фокуса поля
     setIsInputFocused(true)
@@ -25,30 +24,12 @@ const SearchForm = ({
 
   const handleChange = (e) => { // изменение значения в поле
     setSearchQuery(e.target.value)
-    onSearchChange(e.target.value)
-
-    if (!isFirstSearch) { // если это не первый поиск, любые изменения в поле запускают поиск автоматически что бы не нажимать кнопку "найти"
-      setBeginSearch(true)
-      searchMovies()
-    }
   }
 
   const handleSubmit = (e) => { // сабмит формы поиска
     e.preventDefault()
-    setBeginSearch(true)
     searchMovies()
-    setIsFirstSearch(false)
   }
-
-  useEffect(() => {
-    const handleResize = () => { // обработчик изменения размера окна
-      setWindowWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', handleResize) // добавляем слушатель события при монтировании компонента
-    return () => {
-      window.removeEventListener('resize', handleResize) // убираем слушатель события при размонтировании компонента
-    }
-  }, [])
 
   return (
     <form className='search-form' onSubmit={handleSubmit}>
@@ -66,15 +47,9 @@ const SearchForm = ({
           placeholder='Фильм'
         />
         <button className='search-form__button hover-element' type='submit'>Найти</button>
-        {windowWidth >= 768 && (<FilterCheckbox
-          toggleFilterShortMoviesFalse={toggleFilterShortMoviesFalse}
-          toggleFilterShortMoviesTrue={toggleFilterShortMoviesTrue}
-        />)}
+        {windowWidth >= 768 && (<FilterCheckbox setIsFilterShortMovies={setIsFilterShortMovies} />)}
       </div>
-      {windowWidth <= 767 && (<FilterCheckbox
-        toggleFilterShortMoviesFalse={toggleFilterShortMoviesFalse}
-        toggleFilterShortMoviesTrue={toggleFilterShortMoviesTrue}
-      />)}
+      {windowWidth <= 767 && (<FilterCheckbox setIsFilterShortMovies={setIsFilterShortMovies} />)}
       <div className='search-form__line' />
     </form>
   )

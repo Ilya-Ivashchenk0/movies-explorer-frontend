@@ -1,16 +1,16 @@
 import './FilterCheckbox.css'
 import { useState } from 'react'
 
-const FilterCheckbox = ({ toggleFilterShortMoviesFalse, toggleFilterShortMoviesTrue }) => {
+const FilterCheckbox = ({ setIsFilterShortMovies }) => {
   const [short, setShort] = useState(false)
 
   const toggleCircle = () => {
     if (!short) {
       setShort(true)
-      toggleFilterShortMoviesTrue()
+      setIsFilterShortMovies(true)
     } else {
       setShort(false)
-      toggleFilterShortMoviesFalse()
+      setIsFilterShortMovies(false)
     }
   }
 

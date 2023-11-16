@@ -14,8 +14,12 @@ const Portfolio = () => {
           <a className='portfolio__link hover-element-link' href='https://github.com/Ilya-Ivashchenk0/yet-another-project' target='blank' rel='noreferrer'>Адаптивный сайт</a>
           <img className='portfolio__icon' src={arrow} alt='Иконка стрелки' />
         </li>
-        <li className='portfolio__band portfolio__band_type_underlined-none'>
+        <li className='portfolio__band'>
           <a className='portfolio__link hover-element-link' href='https://github.com/Ilya-Ivashchenk0/mesto' target='blank' rel='noreferrer'>Одностраничное приложение</a>
+          <img className='portfolio__icon' src={arrow} alt='Иконка стрелки' />
+        </li>
+        <li className='portfolio__band portfolio__band_type_underlined-none'>
+          <a className='portfolio__link hover-element-link' href='https://www.npmjs.com/package/req-loggs' target='blank' rel='noreferrer'>NPM пакет для логирования входящих запросов</a>
           <img className='portfolio__icon' src={arrow} alt='Иконка стрелки' />
         </li>
       </ul>

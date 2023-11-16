@@ -92,15 +92,8 @@
   line-height: 15.73px;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1279px) {
-  .profile__edit-button {
-    margin-top: 212px;
-  }
-}
-
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .profile__edit-button {
-    margin-top: 379px;
     font-size: 12px;
     line-height: 14.52px;
   }
@@ -215,18 +208,6 @@
   justify-content: center;
   align-items: center;
   height: 220px;
-}
-
-@media screen and (min-width: 768px) and (max-width: 1279px) {
-  .profile__success-box {
-    margin-top: 180px;
-  }
-}
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .profile__success-box {
-    margin-top: 347px;
-  }
 }
 
 .profile__edit-success {

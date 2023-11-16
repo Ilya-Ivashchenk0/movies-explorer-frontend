@@ -31,6 +31,7 @@ const Profile = ({ setLoggedIn }) => {
   }
 
   const logout = () => {
+    localStorage.removeItem('savedSearchResults')
     signout()
       .then(() => {
         setLoggedIn(false)

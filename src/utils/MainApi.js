@@ -23,6 +23,58 @@ class MainApi {
       .then(this._getResponseData)
   }
 
+  getSavedMovies() {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: this._headers
+    })
+      .then(this._getResponseData)
+  }
+
+  addLike(
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN
+  ) {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: this._headers,
+      body: JSON.stringify(
+        country,
+        director,
+        duration,
+        year,
+        description,
+        image,
+        trailerLink,
+        thumbnail,
+        movieId,
+        nameRU,
+        nameEN
+      )
+    })
+      .then(this._getResponseData)
+  }
+
+  deleteLike(movieId) {
+    return fetch(`${this._baseUrl}/movies/${movieId}`, {
+      method: 'DELETE',
+      credentials: 'include',
+      headers: this._headers
+    })
+      .then(this._getResponseData)
+  }
+
 }
 
 export const mainApi = new MainApi({

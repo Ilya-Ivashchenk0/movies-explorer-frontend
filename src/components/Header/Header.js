@@ -1,13 +1,14 @@
 import './Header.css'
-import { useState, useEffect } from 'react'
+import React from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import profile from '../../images/profile.svg'
 
 const Header = ({ toggleNavTab, loggedIn }) => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const windowWidth = React.useContext(WindowWidthContext)
 
   const isMain = () => {
     if (location.pathname === '/') {
@@ -16,16 +17,6 @@ const Header = ({ toggleNavTab, loggedIn }) => {
       return false
     }
   }
-
-  useEffect(() => {
-    const handleResize = () => { // обработчик изменения размера окна
-      setWindowWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', handleResize) // добавляем слушатель события при монтировании компонента
-    return () => {
-      window.removeEventListener('resize', handleResize) // убираем слушатель события при размонтировании компонента
-    }
-  }, [])
 
   const goToPofile = () => {
     navigate('/profile')

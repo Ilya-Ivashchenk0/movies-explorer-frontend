@@ -1,68 +1,54 @@
 import './Movies.css'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { WindowWidthContext } from '../../contexts/WindowWidthContext'
+import { moviesApi } from '../../utils/MoviesApi'
+import consts from '../../utils/consts'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
-import MoreMovies from './MoreMovies/MoreMovies'
-import { moviesApi } from '../../utils/MoviesApi'
+import MoreMovies from '../MoreMovies/MoreMovies'
 
-const Movies = () => {
+const Movies = ({
+  movies,
+  setMovies,
+  savedMovies,
+  setSavedMovies,
+  notification,
+  setNotification,
+  searchFilter
+}) => {
   const location = useLocation()
+  const windowWidth = React.useContext(WindowWidthContext)
 
-  const [movies, setMovies] = useState(null) // фильмы
-  const [beginSearch, setBeginSearch] = useState(false) // состояние начала поиска
-  const [isFilterShortMovies, setIsFilterShortMovies] = useState(false) // фильтровать короткометражки?
   const [searchQuery, setSearchQuery] = useState('') // посковой запрос
+  const [searchResults, setSearchResults] = useState([]) // найденные по запросу фильмы
   const [isMoreMovies, setIsMoreMovies] = useState(false) // есть ли еще фильмы по запросу?
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-  const [visibleMovies, setVisibleMovies] = useState(16)
-  const [notification, setNotification] = useState('')
+  const [visibleMoviesLength, setVisibleMoviesLength] = useState(0) // длина отображающихся фильмов
+  const [isLoadingMovies, setIsLoadingMovies] = useState(false) // состояние прелоадера
+  const [isFilterShortMovies, setIsFilterShortMovies] = useState(false) // включена ли фильтрация?
 
-  const toggleFilterShortMoviesTrue = () => { // переключение фильтра короткометражек в true
-    setIsFilterShortMovies(true)
+  const convertLikedMovies = (movies) => { // сравниваем фильмы с сохраненными фильмами, добавляем лайк и id
+    const convertMovies = movies.map(movie => { // проходим по каждому элементу
+      const compareMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id) // сравниваем id фильма с id сохраненных фильмов
+      const isLiked = compareMovie ? true : false // если нашли совпадение, то добавляем isLiked
+      const _id = compareMovie ? compareMovie._id : null
+
+      return { ...movie, isLiked, _id } // добавляем фильму isLiked и _id для удаления фильма
+    })
+
+    return convertMovies
   }
 
-  const toggleFilterShortMoviesFalse = () => { // переключение фильтра короткометражек в false
-    setIsFilterShortMovies(false)
-  }
+  const windowWidthControl = (data) => {
+    if (data < 1) { // если по ключевому слову ничего не найдено
+      setIsMoreMovies(false)
+      setNotification('Ничего не найдено')
+    }
 
-  const handleSearchChange = (query) => {
-    setSearchQuery(query)
-  }
-
-  const searchMovies = () => {
-    if (location.pathname === '/movies') { // обращаемся к api фильмов, если на странице /movies
-      moviesApi.getMovies()
-      .then(movies => {
-        if (!searchQuery.trim()) { // получаем все фильмы если в поле поиска пусто
-          setMovies(movies)
-          setIsMoreMovies(true)
-          return
-        }
-
-        const filteredMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())) // фильтрация поиска по ключевому слову
-
-        if (filteredMovies.length >= 1) {
-          if (filteredMovies.length >= 5) {
-            setIsMoreMovies(true)
-          } else {
-            setIsMoreMovies(false)
-          }
-
-          setMovies(filteredMovies)
-        } else {
-          setIsMoreMovies(false)
-          setMovies(null)
-          setNotification('Ничего не найдено')
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        setNotification('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.')
-        setMovies(null)
-      })
-    } else { // обращаемся к своему api, если на странице /saved-movies
-
+    if (data > lengthMovies()) {
+      setIsMoreMovies(true)
+    } else {
+      setIsMoreMovies(false)
     }
   }
 
@@ -75,61 +61,87 @@ const Movies = () => {
   }
 
   const loadMoreMovies = () => {
-    if (windowWidth <= 767) { // для брейкпоинта 320px - 767px
-      setVisibleMovies(prevVisibleMovies => {
-        const nextVisibleMovies = prevVisibleMovies + 2
-        setIsMoreMovies(nextVisibleMovies < movies.length) // убираем кнопку еще, когда больше нет фильмов
-        return nextVisibleMovies
-      })
-    } else if (windowWidth >= 768 && windowWidth <= 1280) { // для брейкпоинта 768px - 1280px
-      setVisibleMovies(prevVisibleMovies => {
-        const nextVisibleMovies = prevVisibleMovies + 4
-        setIsMoreMovies(nextVisibleMovies < movies.length) // убираем кнопку еще, когда больше нет фильмов
-        return nextVisibleMovies
-      })
-    } else { // для брейкпоинта 1280px и дальше
-      setVisibleMovies(prevVisibleMovies => {
-        const nextVisibleMovies = prevVisibleMovies + 4
-        setIsMoreMovies(nextVisibleMovies < movies.length) // убираем кнопку еще, когда больше нет фильмов
-        return nextVisibleMovies
-      })
+    const moviesToAdd = windowWidth <= 767 ? 2 : 4
+    const nextMovies = visibleMoviesLength + moviesToAdd
+
+    if (searchResults.length > nextMovies) {
+      setVisibleMoviesLength(nextMovies)
+      setIsMoreMovies(true)
+    } else {
+      setVisibleMoviesLength(searchResults.length)
+      setIsMoreMovies(false)
+    }
+  }
+
+  const searchMovies = () => { // функция поиска фильмов
+    setIsLoadingMovies(true) // включаем прелоадер
+    if (movies.length === 0) { // если это первый поиск
+      moviesApi.getMovies() // запрос к api фильмов
+        .then(movies => {
+          const convertMovies = convertLikedMovies(movies) // добавляем лайки
+          setMovies(convertMovies) // сохраняем фильмы с лайками в стейт
+          const result = searchFilter(convertMovies, searchQuery) // поисковый фильтр
+          windowWidthControl(result.length) // отображение карточек в зависимости от размера окна
+          setSearchResults(result) // отправляем фильмы на отображение
+          localStorage.setItem('savedSearchResults', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: result })) // сохраняем запрос с результатами локально
+        })
+        .catch(err => {
+          console.log(err)
+          setNotification(consts.loadMoviesErrorMessage)
+        })
+        .finally(() => {
+          setIsLoadingMovies(false) // выключаем прелоадер
+        })
+    } else { // если это не первый поиск
+      localStorage.removeItem('savedSearchResults') // удаляем локальные данные
+      const result = searchFilter(movies, searchQuery) // поисковый фильтр
+      windowWidthControl(result.length) // отображение карточек в зависимости от размера окна
+      setSearchResults(result) // отправляем фильмы на отображение
+      localStorage.setItem('savedSearchResults', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: result })) // сохраняем запрос с результатами локально
+      setIsLoadingMovies(false) // выключаем прелоадер
     }
   }
 
   useEffect(() => {
-    const handleResize = () => { // обработчик изменения размера окна
-      setWindowWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', handleResize) // добавляем слушатель события при монтировании компонента
-    return () => {
-      window.removeEventListener('resize', handleResize) // убираем слушатель события при размонтировании компонента
+    const localResult = JSON.parse(localStorage.getItem('savedSearchResults'))
+
+    if (localResult) {
+      setSearchQuery(localResult.searchQuery)
+      setIsFilterShortMovies(localResult.isFilterShortMovies)
+      setSearchResults(localResult.searchResults)
+      windowWidthControl(localResult.searchResults.length)
     }
   }, [])
 
   useEffect(() => {
-    if (beginSearch) {
-      searchMovies()
-    }
-    setVisibleMovies(lengthMovies())
-  }, [searchQuery, beginSearch, windowWidth])
+    setVisibleMoviesLength(lengthMovies())
+
+  }, [windowWidth])
 
   return (
     <main className='movies'>
       <SearchForm
-        onSearchChange={handleSearchChange}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
         searchMovies={searchMovies}
-        setBeginSearch={setBeginSearch}
-        toggleFilterShortMoviesTrue={toggleFilterShortMoviesTrue}
-        toggleFilterShortMoviesFalse={toggleFilterShortMoviesFalse}
+        setIsFilterShortMovies={setIsFilterShortMovies}
       />
       <MoviesCardList
-        movies={movies}
-        visibleMovies={visibleMovies}
-        beginSearch={beginSearch}
+        searchResults={searchResults}
+        visibleMoviesLength={visibleMoviesLength}
+        isLoadingMovies={isLoadingMovies}
         isFilterShortMovies={isFilterShortMovies}
         notification={notification}
+        savedMovies={savedMovies}
+        setSavedMovies={setSavedMovies}
       />
-      {location.pathname === '/movies' && <MoreMovies isMoreMovies={isMoreMovies} loadMoreMovies={loadMoreMovies} />}
+      {location.pathname === '/movies' &&
+        <MoreMovies
+          isMoreMovies={isMoreMovies}
+          loadMoreMovies={loadMoreMovies}
+          isLoadingMovies={isLoadingMovies}
+        />
+      }
     </main>
   )
 }
