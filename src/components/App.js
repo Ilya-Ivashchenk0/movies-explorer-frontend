@@ -118,7 +118,6 @@ const App = () => {
                       setSavedMovies={setSavedMovies}
                       notification={notification}
                       setNotification={setNotification}
-                      searchFilter={searchFilter}
                     />
                   }
                   loggedIn={loggedIn}
@@ -137,7 +136,6 @@ const App = () => {
                       setSavedMovies={setSavedMovies}
                       notification={notification}
                       setNotification={setNotification}
-                      searchFilter={searchFilter}
                     />
                   }
                   loggedIn={loggedIn}

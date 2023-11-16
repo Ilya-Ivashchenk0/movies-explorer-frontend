@@ -1,9 +1,10 @@
 import './Movies.css'
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import consts from '../../utils/consts'
 import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import { moviesApi } from '../../utils/MoviesApi'
-import consts from '../../utils/consts'
+import { searchFilter, convertLikedMovies, lengthMovies } from '../../utils/searchTools'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import MoreMovies from '../MoreMovies/MoreMovies'
@@ -14,8 +15,7 @@ const Movies = ({
   savedMovies,
   setSavedMovies,
   notification,
-  setNotification,
-  searchFilter
+  setNotification
 }) => {
   const location = useLocation()
   const windowWidth = React.useContext(WindowWidthContext)
@@ -27,37 +27,17 @@ const Movies = ({
   const [isLoadingMovies, setIsLoadingMovies] = useState(false) // состояние прелоадера
   const [isFilterShortMovies, setIsFilterShortMovies] = useState(false) // включена ли фильтрация?
 
-  const convertLikedMovies = (movies) => { // сравниваем фильмы с сохраненными фильмами, добавляем лайк и id
-    const convertMovies = movies.map(movie => { // проходим по каждому элементу
-      const compareMovie = savedMovies.find(savedMovie => savedMovie.movieId === movie.id) // сравниваем id фильма с id сохраненных фильмов
-      const isLiked = compareMovie ? true : false // если нашли совпадение, то добавляем isLiked
-      const _id = compareMovie ? compareMovie._id : null
-
-      return { ...movie, isLiked, _id } // добавляем фильму isLiked и _id для удаления фильма
-    })
-
-    return convertMovies
-  }
-
   const windowWidthControl = (data) => {
     if (data < 1) { // если по ключевому слову ничего не найдено
       setIsMoreMovies(false)
-      setNotification('Ничего не найдено')
+      setNotification(consts.notFoundMessage)
     }
 
-    if (data > lengthMovies()) {
+    if (data > lengthMovies(windowWidth)) {
       setIsMoreMovies(true)
     } else {
       setIsMoreMovies(false)
     }
-  }
-
-  const lengthMovies = () => { // устанавливаем колличество отображаемых фильмов в зависимости от разрешения
-    return windowWidth <= 767
-    ? 5
-    : windowWidth >= 768 && windowWidth <= 1280
-    ? 8
-    : 16
   }
 
   const loadMoreMovies = () => {
@@ -78,9 +58,9 @@ const Movies = ({
     if (movies.length === 0) { // если это первый поиск
       moviesApi.getMovies() // запрос к api фильмов
         .then(movies => {
-          const convertMovies = convertLikedMovies(movies) // добавляем лайки
+          const convertMovies = convertLikedMovies(movies, savedMovies) // добавляем лайки
           setMovies(convertMovies) // сохраняем фильмы с лайками в стейт
-          const result = searchFilter(convertMovies, searchQuery) // поисковый фильтр
+          const result = searchFilter(convertMovies, searchQuery, location.pathname) // поисковый фильтр
           windowWidthControl(result.length) // отображение карточек в зависимости от размера окна
           setSearchResults(result) // отправляем фильмы на отображение
           localStorage.setItem('savedSearchResults', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: result })) // сохраняем запрос с результатами локально
@@ -94,7 +74,7 @@ const Movies = ({
         })
     } else { // если это не первый поиск
       localStorage.removeItem('savedSearchResults') // удаляем локальные данные
-      const result = searchFilter(movies, searchQuery) // поисковый фильтр
+      const result = searchFilter(movies, searchQuery, location.pathname) // поисковый фильтр
       windowWidthControl(result.length) // отображение карточек в зависимости от размера окна
       setSearchResults(result) // отправляем фильмы на отображение
       localStorage.setItem('savedSearchResults', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: result })) // сохраняем запрос с результатами локально
@@ -114,8 +94,7 @@ const Movies = ({
   }, [])
 
   useEffect(() => {
-    setVisibleMoviesLength(lengthMovies())
-
+    setVisibleMoviesLength(lengthMovies(windowWidth))
   }, [windowWidth])
 
   return (
