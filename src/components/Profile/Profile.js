@@ -4,26 +4,30 @@ import { useNavigate } from 'react-router-dom'
 import { signout } from '../../utils/auth'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { mainApi } from '../../utils/MainApi'
+import { useFormValidation } from '../../utils/tools' // добавлен импорт хука валидации
+import consts from '../../utils/consts'
 
 const Profile = ({ setLoggedIn }) => {
   const navigate = useNavigate()
-
-  const {currentUser, setCurrentUser} = React.useContext(CurrentUserContext)
+  const { currentUser, setCurrentUser } = React.useContext(CurrentUserContext)
+  const { values, handleChange, errors, isValid, resetForm } = useFormValidation() // добавлен хук валидации
 
   const [isEditing, setIsEditing] = useState(false)
-  const [validateError] = useState(false)
+  const [validateError, setValidateError] = useState(false)
   const [isInputFocused, setIsInputFocused] = useState(false)
   const [name, setName] = useState(currentUser.name)
   const [email, setEmail] = useState(currentUser.email)
   const [editDone, setEditDone] = useState(null)
-  const [isEditSuccefull, setIsEditSuccefull] = useState(false)
+  const [isEditSuccessful, setIsEditSuccessful] = useState(false)
 
   const handleChangeName = (e) => {
     setName(e.target.value)
+    handleChange(e)
   }
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value)
+    handleChange(e)
   }
 
   const handleEdit = () => {
@@ -37,25 +41,26 @@ const Profile = ({ setLoggedIn }) => {
         setLoggedIn(false)
         navigate('/', { replace: true })
       })
-      .catch(err => console.log(`Ошибка: ${err}`))
+      .catch((err) => console.log(`Ошибка: ${err}`))
   }
 
   const handleProfileEdit = (e) => {
     e.preventDefault()
     handleEdit()
 
-    mainApi.setUserInfo({name, email})
+    mainApi
+      .setUserInfo({ name, email })
       .then((res) => {
-        setCurrentUser(oldValue => ({...oldValue, name: res.data.name, email: res.data.email}))
+        setCurrentUser((oldValue) => ({ ...oldValue, name: res.data.name, email: res.data.email }))
         setName(res.name)
         setEmail(res.email)
-        setEditDone('Обновление профиля прошло успешно!')
-        setIsEditSuccefull(true)
+        setEditDone(consts.successUpdateMessage)
+        setIsEditSuccessful(true)
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(`Ошибка: ${err}`)
-        setIsEditSuccefull(false)
-        setEditDone('При обновлении профиля произошла ошибка.')
+        setIsEditSuccessful(false)
+        setEditDone(consts.failedUpdateMessage)
       })
   }
 
@@ -76,21 +81,34 @@ const Profile = ({ setLoggedIn }) => {
     }
   }, [editDone])
 
+  useEffect(() => { // Проверка валидности данных при каждом изменении значений полей
+    if (!isValid) {
+      setValidateError(true)
+    } else {
+      setValidateError(false)
+    }
+  }, [values, isValid])
+
   return (
     <main className='profile'>
       <section className='profile__secion'>
         <h1 className='profile__hello'>Привет, {currentUser.name}!</h1>
-        <form className='profile__form' name='pofile' onSubmit={handleProfileEdit} noValidate>
+        <form className='profile__form' name='profile' onSubmit={handleProfileEdit} noValidate>
           <div className={`profile__name ${isInputFocused ? 'profile__name_focused' : ''}`}>
-            <label className='profile__label' htmlFor='name'>Имя</label>
+            <label className='profile__label' htmlFor='name'>
+              Имя
+            </label>
             <input
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
               className='profile__input'
               type='text'
               id='name'
+              name='name'
               defaultValue={currentUser.name}
-              onChange={handleChangeName}
+              onChange={(e) => {
+                handleChangeName(e)
+              }}
               autoComplete='off'
               placeholder='Ваше имя'
               minLength='2'
@@ -100,15 +118,20 @@ const Profile = ({ setLoggedIn }) => {
             />
           </div>
           <div className='profile__email'>
-            <label className='profile__label' htmlFor='email'>E-mail</label>
+            <label className='profile__label' htmlFor='email'>
+              E-mail
+            </label>
             <input
               onFocus={handleInputFocus}
               onBlur={handleInputBlur}
               className='profile__input'
               type='email'
               id='email'
+              name='email'
               defaultValue={currentUser.email}
-              onChange={handleChangeEmail}
+              onChange={(e) => {
+                handleChangeEmail(e)
+              }}
               autoComplete='off'
               placeholder='Ваш email'
               minLength='2'
@@ -118,27 +141,24 @@ const Profile = ({ setLoggedIn }) => {
             />
           </div>
           <div className='profile__success-box'>
-            {editDone && <p className={`profile__edit-success ${!isEditSuccefull ? 'profile__edit-success_faled' : ''}`}>{ editDone }</p>}
+            {editDone && (
+              <p className={`profile__edit-success ${!isEditSuccessful ? 'profile__edit-success_faled' : ''}`}>{editDone}</p>
+            )}
           </div>
           {!isEditing ? (
             <>
-              <button
-                onClick={handleEdit}
-                className='profile__edit-button hover-element'
-                type='button'
-              >
+              <button onClick={handleEdit} className='profile__edit-button hover-element' type='button'>
                 Редактировать
               </button>
-              <button
-              onClick={logout}
-              className='profile__signout-button hover-element' type='button'
-              >
+              <button onClick={logout} className='profile__signout-button hover-element' type='button'>
                 Выйти из аккаунта
               </button>
             </>
           ) : (
             <>
-              <span className={`${validateError ? 'profile__error-visable' : 'profile__error'}`}>При обновлении профиля произошла ошибка.</span>
+              <span className={`${editDone ? 'profile__error-visable' : 'profile__error'}`}>
+                При обновлении профиля произошла ошибка.
+              </span>
               <button
                 type='submit'
                 disabled={validateError}

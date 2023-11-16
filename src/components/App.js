@@ -46,24 +46,6 @@ const App = () => {
     setIsOpenNavTab(!isOpenNavTab)
   }
 
-  const searchFilter = (movies, searchQuery) => {
-    if (!searchQuery.trim()) { // если в поисковой строке
-      return movies
-    }
-
-    const ruMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())) // фильтрация поиска по ключевому слову на русском
-    const enMovies = movies.filter((movie) => movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())) // фильтрация поиска по ключевому слову на английском
-
-    const mergedMovies = [...ruMovies, ...enMovies] // совмещаем оба массива
-
-    const uniqueMovies = mergedMovies.filter( // удаляем дубли по индексу
-      (movie, index, self) =>
-        index === self.findIndex((m) => location.pathname === '/movies' ? m.id === movie.id : m.movieId === movie.movieId)
-    )
-
-    return uniqueMovies
-  }
-
   useEffect(() => { // проверка токена при загрузке страницы
     checkToken()
   }, [])
