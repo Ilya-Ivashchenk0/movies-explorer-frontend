@@ -28,12 +28,12 @@ const SavedMovies = ({
     localStorage.removeItem('savedSearchResultsSaved')
 
     if (results.length < 1) {
-      setNotification(consts.notFoundMessage)
+      setNotification(consts.NOT_FOUND_MESSAGE)
     } else {
       setNotification('')
     }
     if (savedMovies.length < 1) {
-      setNotification(consts.notSavedMoviesMessage)
+      setNotification(consts.NOT_SAVED_MOVIES_MESSAGE)
     }
     setSearchResults(results)
     localStorage.setItem('savedSearchResultsSaved', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: results })) // сохраняем запрос с результатами локально
@@ -47,10 +47,10 @@ const SavedMovies = ({
       setSearchQuery(localResults.searchQuery)
       setIsFilterShortMovies(localResults.isFilterShortMovies)
       if (localResults.searchResults.length < 1) {
-        setNotification(consts.notFoundMessage)
+        setNotification(consts.NOT_FOUND_MESSAGE)
       }
       if (savedMovies.length < 1) {
-        setNotification(consts.notSavedMoviesMessage)
+        setNotification(consts.NOT_SAVED_MOVIES_MESSAGE)
         setSearchResults(savedMovies)
       }
     } else {

@@ -19,8 +19,8 @@ const FilterCheckbox = ({ setIsFilterShortMovies }) => {
     : 'filter-checkbox__circle filter-checkbox__circle_type_right'
 
   return (
-    <div className="filter-checkbox hover-element">
-      <div className="filter-checkbox__switch" onClick={toggleCircle}>
+    <div className='filter-checkbox hover-element'>
+      <div className='filter-checkbox__switch' onClick={toggleCircle}>
         <div className={circleClass} />
       </div>
       <p className='filter-checkbox__short'>Короткометражки</p>

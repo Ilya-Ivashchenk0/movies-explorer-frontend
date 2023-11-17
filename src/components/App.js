@@ -36,9 +36,7 @@ const App = () => {
     authorize()
       .then((res) => setLoggedIn(true))
       .catch(err => console.log(err))
-      .finally((res) => {
-        setIsLoadingRoutes(false)
-      })
+      .finally(() => setIsLoadingRoutes(false))
   }
 
   const toggleNavTab = () => { // открытие и закрытие бокового меню
@@ -61,7 +59,7 @@ const App = () => {
         })
         .catch((err) => {
           console.log(err)
-          setNotification(consts.loadMoviesErrorMessage)
+          setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE)
         })
     }
   }, [loggedIn])
@@ -91,8 +89,8 @@ const App = () => {
           <div className={`app__overlay ${isOpenNavTab ? 'app__active-overlay' : ''}`} />
           <Routes>
             <Route path='/' element={<Main />} />
-            <Route path='/signin' element={<Login setLoggedIn={setLoggedIn} />} />
-            <Route path='/signup' element={<Register setLoggedIn={setLoggedIn} />} />
+            <Route path='/signin' element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
+            <Route path='/signup' element={<Register loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
             <Route
               path='/movies'
               element={

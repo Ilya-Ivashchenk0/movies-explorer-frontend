@@ -1,11 +1,11 @@
 import './Register.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../images/logo.svg'
 import { register, login } from '../../utils/auth'
 import { useFormValidation } from '../../utils/tools'
 
-const Register = ({ setLoggedIn }) => {
+const Register = ({ loggedIn, setLoggedIn }) => {
   const navigate = useNavigate()
   const { handleChange, errors, isValid } = useFormValidation() // хук валидации
 
@@ -39,6 +39,12 @@ const Register = ({ setLoggedIn }) => {
       })
       .catch((e) => console.log(e))
   }
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/movies')
+    }
+  }, [loggedIn, navigate])
 
   return (
     <main className='register'>
@@ -111,7 +117,7 @@ const Register = ({ setLoggedIn }) => {
           Зарегистрироваться
         </button>
         <p className='register__question'>
-          Уже зарегистрированы?<Link className='register__signin hover-element-link' to='/signin'>
+          Уже зарегистрированы?<Link className='register__signin hover-element' to='/signin'>
             Войти
           </Link>
         </p>

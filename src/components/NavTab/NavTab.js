@@ -1,9 +1,8 @@
 import './NavTab.css'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import profile from '../../images/profile.svg'
 
 const NavTab = ({ isOpenNavTab, toggleNavTab }) => {
-  const location = useLocation()
   const navigate = useNavigate()
 
   const goToProfile = () => {
@@ -20,9 +19,30 @@ const NavTab = ({ isOpenNavTab, toggleNavTab }) => {
           aria-label='Зарыть меню'
           type='button'
         />
-        <Link onClick={toggleNavTab} className={`nav-tab__link hover-element-link ${location.pathname === '/' ? 'nav-tab__link-used' : ''}`} to='/'>Главная</Link>
-        <Link onClick={toggleNavTab} className={`nav-tab__link hover-element-link ${location.pathname === '/movies' ? 'nav-tab__link-used' : ''}`} to='/movies'>Фильмы</Link>
-        <Link onClick={toggleNavTab} className={`nav-tab__link hover-element-link ${location.pathname === '/saved-movies' ? 'nav-tab__link-used' : ''}`} to='/saved-movies'>Сохранённые фильмы</Link>
+        <NavLink
+          onClick={toggleNavTab}
+          className={({isActive, isPending}) =>
+          isPending ? 'nav-tab__link hover-element' : isActive ? 'nav-tab__link hover-element nav-tab__link-used' : 'nav-tab__link hover-element'}
+          to='/'
+        >
+          Главная
+        </NavLink>
+        <NavLink
+          onClick={toggleNavTab}
+          className={({isActive, isPending}) =>
+          isPending ? 'nav-tab__link hover-element' : isActive ? 'nav-tab__link hover-element nav-tab__link-used' : 'nav-tab__link hover-element'}
+          to='/movies'
+        >
+          Фильмы
+        </NavLink>
+        <NavLink
+          onClick={toggleNavTab}
+          className={({isActive, isPending}) =>
+          isPending ? 'nav-tab__link hover-element' : isActive ? 'nav-tab__link hover-element nav-tab__link-used' : 'nav-tab__link hover-element'}
+          to='/saved-movies'
+        >
+          Сохранённые фильмы
+        </NavLink>
         <button className='nav-tab__profile-button hover-element' onClick={ goToProfile } type='button'>
           Акаунт
           <span className='nav-tab__profile-round'>

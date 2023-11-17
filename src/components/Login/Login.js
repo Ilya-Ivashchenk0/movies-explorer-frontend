@@ -1,11 +1,11 @@
 import './Login.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../../utils/auth'
 import logo from '../../images/logo.svg'
 import { useFormValidation } from '../../utils/tools'
 
-const Login = ({ setLoggedIn }) => {
+const Login = ({ loggedIn, setLoggedIn }) => {
   const navigate = useNavigate()
   const { handleChange, errors, isValid } = useFormValidation() // хук валидации
 
@@ -26,13 +26,18 @@ const Login = ({ setLoggedIn }) => {
     login(email, password)
       .then(() => {
         setLoggedIn(true)
-        navigate('/')
+        navigate('/movies')
       })
       .catch((loginError) => {
         console.error('Ошибка при входе:', loginError)
-        // Ваш код для обработки ошибки входа, например, установка состояния с сообщением об ошибке входа
       })
   }
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/movies')
+    }
+  }, [loggedIn, navigate])
 
   return (
     <main className='login'>
@@ -86,7 +91,7 @@ const Login = ({ setLoggedIn }) => {
         </button>
       </form>
       <p className='login__question'>
-        Ещё не зарегистрированы?<Link className='login__signup hover-element-link' to='/signup'>
+        Ещё не зарегистрированы?<Link className='login__signup hover-element' to='/signup'>
           Регистрация
         </Link>
       </p>

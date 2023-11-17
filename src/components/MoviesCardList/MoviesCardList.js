@@ -1,5 +1,6 @@
 import './MoviesCardList.css'
 import { useLocation } from 'react-router-dom'
+import consts from '../../utils/consts'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 
@@ -16,7 +17,7 @@ const MoviesCardList = ({
 
   const filterShortMovies = () => {
     if (isFilterShortMovies) {
-      return searchResults.filter(movie => movie.duration > 40)
+      return searchResults.filter(movie => movie.duration > consts.DURATION_SHORT_FILMS)
     }
     return searchResults
   }

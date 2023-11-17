@@ -24,12 +24,12 @@ const Header = ({ toggleNavTab, loggedIn }) => {
 
   return (
     <header className={`header ${isMain() ? 'header_type_main' : ''}`}>
-      <Link className='header__logo hover-element-link' to='/' />
+      <Link className='header__logo hover-element' to='/' />
       {loggedIn && windowWidth > 1279 && (
         <div className='header__dashboard'>
           <div className='header__movies-links'>
-            <Link to='/movies' className='header__link hover-element-link'>Фильмы</Link>
-            <Link to='/saved-movies' className='header__link hover-element-link'>Сохранённые фильмы</Link>
+            <Link to='/movies' className='header__link hover-element'>Фильмы</Link>
+            <Link to='/saved-movies' className='header__link hover-element'>Сохранённые фильмы</Link>
           </div>
           <button className='header__profile-button hover-element' onClick={goToPofile} type='submit'>
             Аккаунт
@@ -41,7 +41,7 @@ const Header = ({ toggleNavTab, loggedIn }) => {
       )}
       {!loggedIn && (
         <nav className='header__sign-links'>
-          <Link to='/signup' className='header__link hover-element-link'>Регистрация</Link>
+          <Link to='/signup' className='header__link hover-element'>Регистрация</Link>
           <Link to='/signin' className='header__signin-button hover-element'>Войти</Link>
         </nav>
       )}

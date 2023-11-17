@@ -8,8 +8,8 @@ const Footer = () => {
       <div className='footer__info'>
         <p className='footer__copyright'>© {year}</p>
         <ul className='footer__links'>
-          <li className='footer__link-element'><a href='https://practicum.yandex.ru' target='blank' className='footer__link hover-element-link'>Яндекс.Практикум</a></li>
-          <li className='footer__link-element'><a href='https://github.com' target='blank' className='footer__link hover-element-link'>Github</a></li>
+          <li className='footer__link-element'><a href='https://practicum.yandex.ru' target='blank' className='footer__link hover-element'>Яндекс.Практикум</a></li>
+          <li className='footer__link-element'><a href='https://github.com' target='blank' className='footer__link hover-element'>Github</a></li>
         </ul>
       </div>
     </footer>

@@ -30,7 +30,7 @@ const Movies = ({
   const windowWidthControl = (data) => {
     if (data < 1) { // если по ключевому слову ничего не найдено
       setIsMoreMovies(false)
-      setNotification(consts.notFoundMessage)
+      setNotification(consts.NOT_FOUND_MESSAGE)
     }
 
     if (data > lengthMovies(windowWidth)) {
@@ -67,7 +67,7 @@ const Movies = ({
         })
         .catch(err => {
           console.log(err)
-          setNotification(consts.loadMoviesErrorMessage)
+          setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE)
         })
         .finally(() => {
           setIsLoadingMovies(false) // выключаем прелоадер

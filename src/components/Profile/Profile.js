@@ -50,12 +50,12 @@ const Profile = ({ setLoggedIn }) => {
     mainApi.setUserInfo({ name: currentUser.name, email: currentUser.email })
       .then((res) => {
         setCurrentUser((oldValue) => ({ ...oldValue, name: res.data.name, email: res.data.email }))
-        setEditDone(consts.successUpdateMessage)
+        setEditDone(consts.SUCCESS_UPDATE_MESSAGE)
         setIsEditSuccessful(true)
       })
       .catch((err) => {
         setIsEditSuccessful(false)
-        setEditDone(consts.failedUpdateMessage)
+        setEditDone(consts.FAILED_UPDATE_MESSAGE)
       })
   }
 
