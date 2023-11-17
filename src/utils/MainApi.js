@@ -13,6 +13,15 @@ class MainApi {
     return res.json()
   }
 
+  getUserInfo() {
+    return fetch(`${baseUrl()}/users/me`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: this._headers
+    })
+    .then(this._getResponseData)
+  }
+
   setUserInfo({ name, email }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',

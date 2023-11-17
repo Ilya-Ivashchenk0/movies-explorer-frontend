@@ -3,11 +3,11 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../images/logo.svg'
 import { register, login } from '../../utils/auth'
-import { useFormValidation } from '../../utils/tools' // добавлен импорт хука валидации
+import { useFormValidation } from '../../utils/tools'
 
 const Register = ({ setLoggedIn }) => {
   const navigate = useNavigate()
-  const { values, handleChange, errors, isValid, resetForm } = useFormValidation() // хук валидации
+  const { handleChange, errors, isValid } = useFormValidation() // хук валидации
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

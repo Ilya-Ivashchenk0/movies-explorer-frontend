@@ -34,12 +34,11 @@ const App = () => {
 
   const checkToken = () => {
     authorize()
-      .then((res) => {
-        setLoggedIn(true)
-        setCurrentUser(res.data)
-      })
+      .then((res) => setLoggedIn(true))
       .catch(err => console.log(err))
-      .finally(() => setIsLoadingRoutes(false))
+      .finally((res) => {
+        setIsLoadingRoutes(false)
+      })
   }
 
   const toggleNavTab = () => { // открытие и закрытие бокового меню
@@ -50,11 +49,17 @@ const App = () => {
     checkToken()
   }, [])
 
-  useEffect(() => {  // загрузка сохраненных фильмов
+  useEffect(() => {
     if (loggedIn) {
-      mainApi.getSavedMovies()
-        .then(savedMovies => setSavedMovies(savedMovies))
-        .catch(err => {
+      Promise.all([
+        mainApi.getSavedMovies(),
+        mainApi.getUserInfo()
+      ])
+        .then(([savedMovies, userInfo]) => {
+          setSavedMovies(savedMovies)
+          setCurrentUser(userInfo.data)
+        })
+        .catch((err) => {
           console.log(err)
           setNotification(consts.loadMoviesErrorMessage)
         })

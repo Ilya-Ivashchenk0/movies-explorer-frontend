@@ -4,30 +4,28 @@ import { useNavigate } from 'react-router-dom'
 import { signout } from '../../utils/auth'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { mainApi } from '../../utils/MainApi'
-import { useFormValidation } from '../../utils/tools' // добавлен импорт хука валидации
+import { useFormValidation } from '../../utils/tools'
 import consts from '../../utils/consts'
 
 const Profile = ({ setLoggedIn }) => {
   const navigate = useNavigate()
   const { currentUser, setCurrentUser } = React.useContext(CurrentUserContext)
-  const { values, handleChange, errors, isValid, resetForm } = useFormValidation() // добавлен хук валидации
+  const { values, handleChange, isValid } = useFormValidation() // хук валидации
 
   const [isEditing, setIsEditing] = useState(false)
   const [validateError, setValidateError] = useState(false)
   const [isInputFocused, setIsInputFocused] = useState(false)
-  const [name, setName] = useState(currentUser.name)
-  const [email, setEmail] = useState(currentUser.email)
   const [editDone, setEditDone] = useState(null)
   const [isEditSuccessful, setIsEditSuccessful] = useState(false)
 
   const handleChangeName = (e) => {
-    setName(e.target.value)
     handleChange(e)
+    setCurrentUser((oldValue) => ({ ...oldValue, name: e.target.value })) // Обновление name в контексте
   }
 
   const handleChangeEmail = (e) => {
-    setEmail(e.target.value)
     handleChange(e)
+    setCurrentUser((oldValue) => ({ ...oldValue, email: e.target.value })) // Обновление email в контексте
   }
 
   const handleEdit = () => {
@@ -49,12 +47,9 @@ const Profile = ({ setLoggedIn }) => {
     e.preventDefault()
     handleEdit()
 
-    mainApi
-      .setUserInfo({ name, email })
+    mainApi.setUserInfo({ name: currentUser.name, email: currentUser.email })
       .then((res) => {
         setCurrentUser((oldValue) => ({ ...oldValue, name: res.data.name, email: res.data.email }))
-        setName(res.name)
-        setEmail(res.email)
         setEditDone(consts.successUpdateMessage)
         setIsEditSuccessful(true)
       })
@@ -105,7 +100,7 @@ const Profile = ({ setLoggedIn }) => {
               type='text'
               id='name'
               name='name'
-              defaultValue={currentUser.name}
+              value={currentUser.name}
               onChange={(e) => {
                 handleChangeName(e)
               }}
@@ -128,7 +123,7 @@ const Profile = ({ setLoggedIn }) => {
               type='email'
               id='email'
               name='email'
-              defaultValue={currentUser.email}
+              value={currentUser.email}
               onChange={(e) => {
                 handleChangeEmail(e)
               }}
