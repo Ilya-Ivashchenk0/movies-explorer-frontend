@@ -1,7 +1,6 @@
 import consts from "./consts"
 
 export const searchFilter = (movies, searchQuery, isFilterShortMovies, locationPathname) => {
-  console.log(searchQuery)
   if (!searchQuery.trim()) { // если в поисковой строке
     return movies
   }

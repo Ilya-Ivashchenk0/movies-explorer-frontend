@@ -40,9 +40,6 @@ const Register = ({ loggedIn, setLoggedIn }) => {
 
     register(name, email, password)
       .then((res) => {
-        setSuccessSignup(true)
-        setMessage(res.mesage)
-        setShowNotify(true)
         login(email, password)
           .then(() => {
             setLoggedIn(true)
@@ -50,11 +47,9 @@ const Register = ({ loggedIn, setLoggedIn }) => {
           })
           .catch((err) => console.log(err))
       })
-      .catch((err) => {
+      .catch(() => {
         setMessage(consts.FAILED_SIGNUP_MESSAGE)
-        setInputsDisabled(false)
         setShowNotify(true)
-        console.log(err)
       })
   }
 
@@ -62,6 +57,7 @@ const Register = ({ loggedIn, setLoggedIn }) => {
     if (showNotify) {
       const delay = setTimeout(() => {
         setShowNotify(false)
+        setInputsDisabled(false)
       }, 2500)
       return () => clearTimeout(delay)
     }

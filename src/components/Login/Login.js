@@ -32,18 +32,14 @@ const Login = ({ loggedIn, setLoggedIn }) => {
     setInputsDisabled(true)
 
     login(email, password)
-      .then((res) => {
-        setMessage(res.message)
-        setSuccessSignin(true)
-        setShowNotify(true)
+      .then(() => {
         setLoggedIn(true)
         navigate('/movies')
       })
-      .catch((err) => {
+      .catch(() => {
         setSuccessSignin(false)
         setMessage(consts.FAILED_SIGNIN_MESSAGE)
         setShowNotify(true)
-        setInputsDisabled(false)
       })
   }
 
@@ -51,6 +47,7 @@ const Login = ({ loggedIn, setLoggedIn }) => {
     if (showNotify) {
       const delay = setTimeout(() => {
         setShowNotify(false)
+        setInputsDisabled(false)
       }, 2500)
       return () => clearTimeout(delay)
     }

@@ -83,20 +83,31 @@ const Movies = ({
 
   useEffect(() => {
     const query = getStorageItem('searchQuery')
-    console.log(query)
-    if (query) {
-      setSearchQuery(query)
+
+    const checkQuery = () => {
+      if (!query) {
+        setSearchQuery('')
+        return ''
+      } else {
+        setSearchQuery(query)
+        return query
+      }
     }
-    console.log(searchQuery)
+
     const filterShortMovies = getStorageItem('isFilterShortMovies')
-    if (filterShortMovies) {
-      setIsFilterShortMovies(filterShortMovies)
+    const checkFilterShortMovies = () => {
+      if (filterShortMovies) {
+        setIsFilterShortMovies(filterShortMovies)
+        return filterShortMovies
+      } else {
+        return false
+      }
     }
+
     const localMovies = getStorageItem('movies')
-    console.log(localMovies)
     if (localMovies) {
-      const filterResult = searchFilter(localMovies, query, isFilterShortMovies, location.pathname) // поисковый фильтр
-      console.log(filterResult)
+      const filterResult = searchFilter(localMovies, checkQuery(), checkFilterShortMovies(), location.pathname) // поисковый фильтр
+
       if (filterResult < 1) {
         setNotification(consts.NOT_FOUND_MESSAGE)
       }
