@@ -101,7 +101,9 @@ const Movies = ({
     }
 
     const localMovies = getStorageItem('movies')
+
     if (localMovies) {
+      setMovies(localMovies)
       const filterResult = searchFilter(localMovies, checkQuery(), checkFilterShortMovies(), location.pathname) // поисковый фильтр
 
       if (filterResult < 1) {

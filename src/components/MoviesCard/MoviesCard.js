@@ -1,10 +1,11 @@
 import './MoviesCard.css'
+import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import voidHeart from '../../images/void-heart.svg'
 import fullHeart from '../../images/full-heart.svg'
 import deleteIcon from '../../images/delete-icon.svg'
 import { mainApi } from '../../utils/MainApi'
-import { setStorageItem } from '../../utils/localStorage'
+import { getStorageItem, setStorageItem } from '../../utils/localStorage'
 import { convertLikedMovies } from '../../utils/tools'
 
 const MoviesCard = ({
@@ -33,11 +34,8 @@ const MoviesCard = ({
   }
 
   const icon = () => {
-    if (location.pathname === '/movies') { //fullHeart
-      if (movie.isLiked) {
-        return fullHeart
-      }
-      return voidHeart
+    if (location.pathname === '/movies') {
+      return movie.isLiked ? fullHeart : voidHeart
     } else {
       return deleteIcon
     }
@@ -61,7 +59,7 @@ const MoviesCard = ({
         const saveMovies = [...savedMovies, newMovie]
         setSavedMovies(saveMovies)
         movie.isLiked = true
-        movie.movieId = movie.id
+        movie._id = newMovie._id
         const filter = convertLikedMovies(movies, saveMovies)
         setStorageItem('movies', filter)
       })
@@ -70,12 +68,13 @@ const MoviesCard = ({
 
   const handleDeleteLike = () => {
     mainApi.deleteLike(movie._id)
-      .then((res) => {
+      .then(() => {
         const newSaved = savedMovies.filter(savedMovie => savedMovie._id !== movie._id)
         setSavedMovies(newSaved)
-        movie.isLiked = false
-        const filter = convertLikedMovies(movies, newSaved)
-        if (filter) {
+
+        const movies = getStorageItem('movies')
+        if (movies) {
+          const filter = convertLikedMovies(movies, newSaved)
           setStorageItem('movies', filter)
         }
       })
