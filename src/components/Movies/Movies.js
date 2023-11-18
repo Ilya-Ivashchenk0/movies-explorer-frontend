@@ -29,19 +29,14 @@ const Movies = ({
   const [isFilterShortMovies, setIsFilterShortMovies] = useState(false) // включена ли фильтрация?
 
   const windowWidthControl = (data) => {
-    console.log(data)
     if (isFilterShortMovies) {
-      console.log(data.length > visibleMoviesLength)
-      console.log(data.length)
-      console.log(visibleMoviesLength)
-      if (data.length > visibleMoviesLength) {
+      const filterData = data.filter(movie => movie.duration < consts.DURATION_SHORT_FILMS)
+      if (filterData > visibleMoviesLength) {
         setIsMoreMovies(true)
       } else {
         setIsMoreMovies(false)
       }
     } else {
-      data.filter(movie => movie.duration < consts.DURATION_SHORT_FILMS)
-      console.log(data)
       if (data.length > visibleMoviesLength) {
         setIsMoreMovies(true)
       } else {
