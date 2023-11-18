@@ -47,6 +47,7 @@ const SavedMovies = ({
     <main className='saved-movies'>
       <SearchForm
         searchMovies={searchMovies}
+        isFilterShortMovies={isFilterShortMovies}
         setIsFilterShortMovies={setIsFilterShortMovies}
         onSearchChange={handleSearchChange}
         searchQuery={searchQuery}

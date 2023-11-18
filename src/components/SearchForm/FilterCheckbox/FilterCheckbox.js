@@ -1,11 +1,16 @@
 import './FilterCheckbox.css'
+import { useLocation } from 'react-router-dom'
 import { setStorageItem } from '../../../utils/localStorage'
 
 const FilterCheckbox = ({ isFilterShortMovies, setIsFilterShortMovies }) => {
+  const location = useLocation()
 
   const toggleCircle = () => {
+    console.log(111)
     setIsFilterShortMovies(!isFilterShortMovies)
-    setStorageItem('isFilterShortMovies', !isFilterShortMovies)
+    if (location.pathname === '/movies') {
+      setStorageItem('isFilterShortMovies', !isFilterShortMovies)
+    }
   }
 
   return (

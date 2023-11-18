@@ -85,6 +85,7 @@ const Movies = ({
             windowWidthControl(result) // отображение карточек в зависимости от размера окна
             setSearchResults(result) // отправляем фильмы на отображение
             setStorageItem('searchQuery', searchQuery)
+            setStorageItem('isFilterShortMovies', isFilterShortMovies)
             setStorageItem('searchResults', result)
           })
           .catch(() => setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE))
