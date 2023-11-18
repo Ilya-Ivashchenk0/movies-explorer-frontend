@@ -1,5 +1,6 @@
 import './SearchForm.css'
 import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import search from '../../images/search-icon.svg'
@@ -13,6 +14,7 @@ const SearchForm = ({
   setSearchQuery
 }) => {
   const windowWidth = React.useContext(WindowWidthContext)
+  const location = useLocation()
 
   const [isInputFocused, setIsInputFocused] = useState(false)
 
@@ -26,7 +28,9 @@ const SearchForm = ({
 
   const handleChange = (e) => { // изменение значения в поле
     setSearchQuery(e.target.value)
-    setStorageItem('searchQuery', e.target.value)
+    if (location.pathname === '/movies') {
+      setStorageItem('searchQuery', e.target.value)
+    }
   }
 
   const handleSubmit = (e) => { // сабмит формы поиска
