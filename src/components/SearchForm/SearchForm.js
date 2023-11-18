@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import search from '../../images/search-icon.svg'
+import { setStorageItem } from '../../utils/localStorage'
 
 const SearchForm = ({
   searchMovies,
@@ -25,6 +26,7 @@ const SearchForm = ({
 
   const handleChange = (e) => { // изменение значения в поле
     setSearchQuery(e.target.value)
+    setStorageItem('searchQuery', e.target.value)
   }
 
   const handleSubmit = (e) => { // сабмит формы поиска

@@ -61,36 +61,36 @@ const Movies = ({
   }
 
   const searchMovies = () => { // функция поиска фильмов
-    if (searchQuery !== '') {
-      const result = getStorageItem('searchResults')
-      if (result) {
-        const filterResult = searchFilter(result, searchQuery, location.pathname) // поисковый фильтр
-        if (filterResult < 1) { // если по ключевому слову ничего не найдено
-          setIsMoreMovies(false)
-          setNotification(consts.NOT_FOUND_MESSAGE)
-        }
-        setSearchResults(filterResult)
-        windowWidthControl(filterResult)
-      } else {
-        setIsLoadingMovies(true) // включаем прелоадер
-        moviesApi.getMovies() // запрос к api фильмов
-          .then(movies => {
-            const convertMovies = convertLikedMovies(movies, savedMovies) // добавляем лайки
-            setMovies(convertMovies) // сохраняем фильмы с лайками в стейт
-            const result = searchFilter(convertMovies, searchQuery, location.pathname) // поисковый фильтр
-            if (result < 1) { // если по ключевому слову ничего не найдено
-              setIsMoreMovies(false)
-              setNotification(consts.NOT_FOUND_MESSAGE)
-            }
-            windowWidthControl(result) // отображение карточек в зависимости от размера окна
-            setSearchResults(result) // отправляем фильмы на отображение
-            setStorageItem('searchQuery', searchQuery)
-            setStorageItem('isFilterShortMovies', isFilterShortMovies)
-            setStorageItem('searchResults', result)
-          })
-          .catch(() => setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE))
-          .finally(() => setIsLoadingMovies(false)) // выключаем прелоадер
+    const result = getStorageItem('movies')
+    console.log(result)
+    if (result) {
+      const filterResult = searchFilter(result, searchQuery, location.pathname) // поисковый фильтр
+      console.log(filterResult)
+      if (filterResult < 1) { // если по ключевому слову ничего не найдено
+        setIsMoreMovies(false)
+        setNotification(consts.NOT_FOUND_MESSAGE)
       }
+      setSearchResults(filterResult)
+      windowWidthControl(filterResult)
+    } else {
+      setIsLoadingMovies(true) // включаем прелоадер
+      moviesApi.getMovies() // запрос к api фильмов
+        .then(movies => {
+          const convertMovies = convertLikedMovies(movies, savedMovies) // добавляем лайки
+          setMovies(convertMovies) // сохраняем фильмы с лайками в стейт
+          setStorageItem('movies', convertMovies)
+          const result = searchFilter(convertMovies, searchQuery, location.pathname) // поисковый фильтр
+          if (result < 1) { // если по ключевому слову ничего не найдено
+            setIsMoreMovies(false)
+            setNotification(consts.NOT_FOUND_MESSAGE)
+          }
+          windowWidthControl(result) // отображение карточек в зависимости от размера окна
+          setSearchResults(result) // отправляем фильмы на отображение
+          setStorageItem('searchQuery', searchQuery)
+          setStorageItem('isFilterShortMovies', isFilterShortMovies)
+        })
+        .catch(() => setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE))
+        .finally(() => setIsLoadingMovies(false)) // выключаем прелоадер
     }
   }
 
@@ -103,10 +103,9 @@ const Movies = ({
     if (filterShortMovies) {
       setIsFilterShortMovies(filterShortMovies)
     }
-    const results = getStorageItem('searchResults')
+    const results = getStorageItem('movies')
     if (results) {
-      setSearchResults(results)
-      windowWidthControl(results)
+      searchMovies()
     }
   }, [isFilterShortMovies])
 
