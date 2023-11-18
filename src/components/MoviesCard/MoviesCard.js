@@ -1,5 +1,4 @@
 import './MoviesCard.css'
-import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import voidHeart from '../../images/void-heart.svg'
 import fullHeart from '../../images/full-heart.svg'
@@ -12,9 +11,7 @@ const MoviesCard = ({
   movie,
   movies,
   savedMovies,
-  setSavedMovies,
-  searchResults,
-  setSearchResults
+  setSavedMovies
 }) => {
   const location = useLocation()
 
