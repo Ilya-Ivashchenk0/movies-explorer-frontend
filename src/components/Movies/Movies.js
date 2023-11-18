@@ -5,6 +5,7 @@ import consts from '../../utils/consts'
 import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import { moviesApi } from '../../utils/MoviesApi'
 import { searchFilter, convertLikedMovies } from '../../utils/tools'
+import { setStorageItem, getStorageItem } from '../../utils/localStorage'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import MoreMovies from '../MoreMovies/MoreMovies'
@@ -46,6 +47,9 @@ const Movies = ({
     if (searchResults.length > nextMovies) {
       setVisibleMoviesLength(nextMovies)
       setIsMoreMovies(true)
+    } else if (searchResults.length === nextMovies) {
+      setVisibleMoviesLength(nextMovies)
+      setIsMoreMovies(false)
     } else {
       setVisibleMoviesLength(searchResults.length)
       setIsMoreMovies(false)
@@ -62,33 +66,33 @@ const Movies = ({
           const result = searchFilter(convertMovies, searchQuery, location.pathname) // поисковый фильтр
           windowWidthControl(result.length) // отображение карточек в зависимости от размера окна
           setSearchResults(result) // отправляем фильмы на отображение
-          localStorage.setItem('savedSearchResults', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: result })) // сохраняем запрос с результатами локально
+          setStorageItem('searchQuery', searchQuery)
+          setStorageItem('searchResults', result)
         })
-        .catch(err => {
-          console.log(err)
-          setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE)
-        })
-        .finally(() => {
-          setIsLoadingMovies(false) // выключаем прелоадер
-        })
+        .catch(() => setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE))
+        .finally(() => setIsLoadingMovies(false)) // выключаем прелоадер
     } else { // если это не первый поиск
-      localStorage.removeItem('savedSearchResults') // удаляем локальные данные
       const result = searchFilter(movies, searchQuery, location.pathname) // поисковый фильтр
       windowWidthControl(result.length) // отображение карточек в зависимости от размера окна
-      setSearchResults(result) // отправляем фильмы на отображение
       localStorage.setItem('savedSearchResults', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: result })) // сохраняем запрос с результатами локально
       setIsLoadingMovies(false) // выключаем прелоадер
+      setSearchResults(result) // отправляем фильмы на отображение
     }
   }
 
   useEffect(() => {
-    const localResult = JSON.parse(localStorage.getItem('savedSearchResults'))
-
-    if (localResult) {
-      setSearchQuery(localResult.searchQuery)
-      setIsFilterShortMovies(localResult.isFilterShortMovies)
-      setSearchResults(localResult.searchResults)
-      windowWidthControl(localResult.searchResults.length)
+    const query = getStorageItem('searchQuery')
+    if (query) {
+      setSearchQuery(query)
+    }
+    const filterShortMovies = getStorageItem('isFilterShortMovies')
+    if (filterShortMovies) {
+      setIsFilterShortMovies(filterShortMovies)
+    }
+    const results = getStorageItem('searchResults')
+    if (results) {
+      setSearchResults(results)
+      windowWidthControl(results.length)
     }
   }, [])
 
@@ -102,6 +106,7 @@ const Movies = ({
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         searchMovies={searchMovies}
+        isFilterShortMovies={isFilterShortMovies}
         setIsFilterShortMovies={setIsFilterShortMovies}
       />
       <MoviesCardList

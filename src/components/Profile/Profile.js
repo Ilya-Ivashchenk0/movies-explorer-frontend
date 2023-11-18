@@ -5,6 +5,7 @@ import { signout } from '../../utils/auth'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { mainApi } from '../../utils/MainApi'
 import { useFormValidation } from '../../hooks/formValidator'
+import { deleteAllStorage } from '../../utils/localStorage'
 import consts from '../../utils/consts'
 
 const Profile = ({ setLoggedIn }) => {
@@ -13,6 +14,8 @@ const Profile = ({ setLoggedIn }) => {
   const { values, handleChange, isValid } = useFormValidation() // хук валидации
 
   const [isEditing, setIsEditing] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [validateError, setValidateError] = useState(false)
   const [isInputFocused, setIsInputFocused] = useState(false)
   const [editDone, setEditDone] = useState(null)
@@ -20,12 +23,12 @@ const Profile = ({ setLoggedIn }) => {
 
   const handleChangeName = (e) => {
     handleChange(e)
-    setCurrentUser((oldValue) => ({ ...oldValue, name: e.target.value })) // Обновление name в контексте
+    setName(e.target.value)
   }
 
   const handleChangeEmail = (e) => {
     handleChange(e)
-    setCurrentUser((oldValue) => ({ ...oldValue, email: e.target.value })) // Обновление email в контексте
+    setEmail(e.target.value)
   }
 
   const handleEdit = () => {
@@ -33,7 +36,7 @@ const Profile = ({ setLoggedIn }) => {
   }
 
   const logout = () => {
-    localStorage.removeItem('savedSearchResults')
+    deleteAllStorage()
     signout()
       .then(() => {
         setLoggedIn(false)
@@ -44,9 +47,13 @@ const Profile = ({ setLoggedIn }) => {
 
   const handleProfileEdit = (e) => {
     e.preventDefault()
-    handleEdit()
 
-    mainApi.setUserInfo({ name: currentUser.name, email: currentUser.email })
+    if (name === currentUser.name && email === currentUser.email) {
+      setIsEditSuccessful(false)
+      setEditDone(consts.FAILED_UPDATE_MESSAGE)
+    }
+
+    mainApi.setUserInfo({ name, email })
       .then((res) => {
         setCurrentUser((oldValue) => ({ ...oldValue, name: res.data.name, email: res.data.email }))
         setEditDone(consts.SUCCESS_UPDATE_MESSAGE)
@@ -56,6 +63,7 @@ const Profile = ({ setLoggedIn }) => {
         setIsEditSuccessful(false)
         setEditDone(consts.FAILED_UPDATE_MESSAGE)
       })
+    handleEdit()
   }
 
   const handleInputFocus = () => {
@@ -65,6 +73,11 @@ const Profile = ({ setLoggedIn }) => {
   const handleInputBlur = () => {
     setIsInputFocused(false)
   }
+
+  useEffect(() => {
+    setName(currentUser.name)
+    setEmail(currentUser.email)
+  }, [currentUser])
 
   useEffect(() => {
     if (editDone) {
@@ -99,7 +112,7 @@ const Profile = ({ setLoggedIn }) => {
               type='text'
               id='name'
               name='name'
-              value={currentUser.name}
+              value={name}
               onChange={(e) => {
                 handleChangeName(e)
               }}
@@ -122,7 +135,7 @@ const Profile = ({ setLoggedIn }) => {
               type='email'
               id='email'
               name='email'
-              value={currentUser.email}
+              value={email}
               onChange={(e) => {
                 handleChangeEmail(e)
               }}
@@ -155,8 +168,8 @@ const Profile = ({ setLoggedIn }) => {
               </span>
               <button
                 type='submit'
-                disabled={validateError || !isEditing}
-                className={`profile__save-button ${validateError ? 'profile__save-button_disabled' : 'hover-element'}`}
+                disabled={validateError || (name === currentUser.name && email === currentUser.email)}
+                className={`profile__save-button ${validateError || (name === currentUser.name && email === currentUser.email) ? 'profile__save-button_disabled' : 'hover-element'}`}
               >
                 Сохранить
               </button>

@@ -6,6 +6,7 @@ import search from '../../images/search-icon.svg'
 
 const SearchForm = ({
   searchMovies,
+  isFilterShortMovies,
   setIsFilterShortMovies,
   searchQuery,
   setSearchQuery
@@ -47,9 +48,9 @@ const SearchForm = ({
           placeholder='Фильм'
         />
         <button className='search-form__button hover-element' type='submit'>Найти</button>
-        {windowWidth >= 768 && (<FilterCheckbox setIsFilterShortMovies={setIsFilterShortMovies} />)}
+        {windowWidth >= 768 && (<FilterCheckbox isFilterShortMovies={isFilterShortMovies} setIsFilterShortMovies={setIsFilterShortMovies} />)}
       </div>
-      {windowWidth <= 767 && (<FilterCheckbox setIsFilterShortMovies={setIsFilterShortMovies} />)}
+      {windowWidth <= 767 && (<FilterCheckbox isFilterShortMovies={isFilterShortMovies} setIsFilterShortMovies={setIsFilterShortMovies} />)}
       <div className='search-form__line' />
     </form>
   )

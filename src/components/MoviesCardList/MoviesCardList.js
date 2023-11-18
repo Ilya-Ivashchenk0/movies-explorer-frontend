@@ -17,7 +17,7 @@ const MoviesCardList = ({
 
   const filterShortMovies = () => {
     if (isFilterShortMovies) {
-      return searchResults.filter(movie => movie.duration > consts.DURATION_SHORT_FILMS)
+      return searchResults.filter(movie => movie.duration < consts.DURATION_SHORT_FILMS)
     }
     return searchResults
   }
