@@ -23,7 +23,7 @@ const SavedMovies = ({
   }
 
   const searchMovies = () => {
-    const results = searchFilter(savedMovies, searchQuery, location.pathname)
+    const results = searchFilter(savedMovies, searchQuery, isFilterShortMovies, location.pathname)
 
     if (results.length < 1) {
       setNotification(consts.NOT_FOUND_MESSAGE)
@@ -40,8 +40,8 @@ const SavedMovies = ({
     if (savedMovies.length < 1) {
       setNotification(consts.NOT_SAVED_MOVIES_MESSAGE)
     }
-    setSearchResults(savedMovies)
-  }, [savedMovies])
+    searchMovies()
+  }, [savedMovies, isFilterShortMovies])
 
   return (
     <main className='saved-movies'>
