@@ -29,19 +29,10 @@ const Movies = ({
   const [isFilterShortMovies, setIsFilterShortMovies] = useState(false) // включена ли фильтрация?
 
   const windowWidthControl = (data) => {
-    if (isFilterShortMovies) {
-      const filterData = data.filter(movie => movie.duration < consts.DURATION_SHORT_FILMS)
-      if (filterData > visibleMoviesLength) {
-        setIsMoreMovies(true)
-      } else {
-        setIsMoreMovies(false)
-      }
+    if (data.length > visibleMoviesLength) {
+      setIsMoreMovies(true)
     } else {
-      if (data.length > visibleMoviesLength) {
-        setIsMoreMovies(true)
-      } else {
-        setIsMoreMovies(false)
-      }
+      setIsMoreMovies(false)
     }
   }
 
@@ -61,33 +52,29 @@ const Movies = ({
   }
 
   const searchMovies = () => { // функция поиска фильмов
-    const result = getStorageItem('movies')
-    console.log(result)
-    if (result) {
-      const filterResult = searchFilter(result, searchQuery, location.pathname) // поисковый фильтр
-      console.log(filterResult)
-      if (filterResult < 1) { // если по ключевому слову ничего не найдено
+    const localMovies = getStorageItem('movies')
+
+    console.log(searchQuery)
+
+    if (localMovies) { // если это не первый поиск
+      const filterResult = searchFilter(localMovies, searchQuery, isFilterShortMovies, location.pathname) // поисковый фильтр
+      if (filterResult.length < 1) {
         setIsMoreMovies(false)
         setNotification(consts.NOT_FOUND_MESSAGE)
       }
       setSearchResults(filterResult)
+      console.log(filterResult)
       windowWidthControl(filterResult)
-    } else {
-      setIsLoadingMovies(true) // включаем прелоадер
+    } else { // если это первый поиск и в локал нет фильмов
       moviesApi.getMovies() // запрос к api фильмов
         .then(movies => {
           const convertMovies = convertLikedMovies(movies, savedMovies) // добавляем лайки
           setMovies(convertMovies) // сохраняем фильмы с лайками в стейт
           setStorageItem('movies', convertMovies)
-          const result = searchFilter(convertMovies, searchQuery, location.pathname) // поисковый фильтр
-          if (result < 1) { // если по ключевому слову ничего не найдено
-            setIsMoreMovies(false)
-            setNotification(consts.NOT_FOUND_MESSAGE)
-          }
-          windowWidthControl(result) // отображение карточек в зависимости от размера окна
-          setSearchResults(result) // отправляем фильмы на отображение
-          setStorageItem('searchQuery', searchQuery)
-          setStorageItem('isFilterShortMovies', isFilterShortMovies)
+          const filterResult = searchFilter(convertMovies, searchQuery, isFilterShortMovies, location.pathname)
+          setSearchResults(filterResult)
+          console.log(filterResult)
+          windowWidthControl(filterResult)
         })
         .catch(() => setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE))
         .finally(() => setIsLoadingMovies(false)) // выключаем прелоадер
@@ -96,16 +83,25 @@ const Movies = ({
 
   useEffect(() => {
     const query = getStorageItem('searchQuery')
+    console.log(query)
     if (query) {
       setSearchQuery(query)
     }
+    console.log(searchQuery)
     const filterShortMovies = getStorageItem('isFilterShortMovies')
     if (filterShortMovies) {
       setIsFilterShortMovies(filterShortMovies)
     }
-    const results = getStorageItem('movies')
-    if (results) {
-      searchMovies()
+    const localMovies = getStorageItem('movies')
+    console.log(localMovies)
+    if (localMovies) {
+      const filterResult = searchFilter(localMovies, query, isFilterShortMovies, location.pathname) // поисковый фильтр
+      console.log(filterResult)
+      if (filterResult < 1) {
+        setNotification(consts.NOT_FOUND_MESSAGE)
+      }
+      setSearchResults(filterResult)
+      windowWidthControl(filterResult)
     }
   }, [isFilterShortMovies])
 
@@ -133,6 +129,7 @@ const Movies = ({
         setSavedMovies={setSavedMovies}
         windowWidthControl={windowWidthControl}
         setVisibleMoviesLength={setVisibleMoviesLength}
+        movies={movies}
       />
       {location.pathname === '/movies' &&
         <MoreMovies

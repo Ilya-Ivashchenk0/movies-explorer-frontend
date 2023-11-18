@@ -9,6 +9,7 @@ import { convertLikedMovies } from '../../utils/tools'
 
 const MoviesCard = ({
   movie,
+  movies,
   savedMovies,
   setSavedMovies,
   searchResults,
@@ -61,20 +62,25 @@ const MoviesCard = ({
         setSavedMovies(saveMovies)
         movie.isLiked = true
         movie.movieId = movie.id
-        const filter = convertLikedMovies(searchResults, saveMovies)
-        setStorageItem('searchResults', filter)
+        const filter = convertLikedMovies(movies, saveMovies)
+        setStorageItem('movies', filter)
       })
+      .catch(err => console.log(err))
   }
 
   const handleDeleteLike = () => {
     mainApi.deleteLike(movie._id)
-      .then(err => {
-        setSavedMovies(savedMovies.filter(savedMovie => savedMovie._id !== movie._id))
+      .then((res) => {
+        const newSaved = savedMovies.filter(savedMovie => savedMovie._id !== movie._id)
+        setSavedMovies(newSaved)
         movie.isLiked = false
-        if (setSearchResults) {
-          setSearchResults(searchResults.filter(m => m.id === movie.movieId))
+        const filter = convertLikedMovies(movies, newSaved)
+        console.log(movies)
+        if (filter) {
+          setStorageItem('movies', filter)
         }
       })
+      .catch(err => console.log(err))
   }
 
   return (

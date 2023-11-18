@@ -1,28 +1,18 @@
 import './MoviesCardList.css'
 import { useLocation } from 'react-router-dom'
-import consts from '../../utils/consts'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import Preloader from '../Preloader/Preloader'
 
 const MoviesCardList = ({
   searchResults,
   visibleMoviesLength,
-  isFilterShortMovies,
   notification,
   isLoadingMovies,
   savedMovies,
-  setSavedMovies
+  setSavedMovies,
+  movies
 }) => {
   const location = useLocation()
-
-  const filterShortMovies = () => {
-    if (isFilterShortMovies) {
-      const fileredMovies = searchResults.filter(movie => movie.duration < consts.DURATION_SHORT_FILMS)
-      return fileredMovies
-    } else {
-      return searchResults
-    }
-  }
 
   return (
     <section className='movies-card-list'>
@@ -30,19 +20,20 @@ const MoviesCardList = ({
         <Preloader />
       )}
       {searchResults.length > 0 && !isLoadingMovies && (
-        <ul className={`movies-card-list__grid ${filterShortMovies().length <= 0 ? 'movies-card-list__grid_void' : ''}`}>
-          {filterShortMovies().slice(0, visibleMoviesLength).map((movie) => (
+        <ul className={`movies-card-list__grid ${searchResults.length <= 0 ? 'movies-card-list__grid_void' : ''}`}>
+          {searchResults.slice(0, visibleMoviesLength).map((movie) => (
               <MoviesCard
                 key={(location.pathname === '/movies') ? movie.id : movie.movieId}
                 movie={movie}
                 searchResults={searchResults}
                 savedMovies={savedMovies}
                 setSavedMovies={setSavedMovies}
+                movies={movies}
               />
           ))}
         </ul>
       )}
-      {searchResults.length <= 0  && notification && (
+      {searchResults.length <= 0 && (
         <p className='movies-card-list__not-found'>{ notification }</p>
       )}
     </section>

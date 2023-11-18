@@ -1,4 +1,7 @@
-export const searchFilter = (movies, searchQuery, locationPathname) => {
+import consts from "./consts"
+
+export const searchFilter = (movies, searchQuery, isFilterShortMovies, locationPathname) => {
+  console.log(searchQuery)
   if (!searchQuery.trim()) { // если в поисковой строке
     return movies
   }
@@ -15,6 +18,11 @@ export const searchFilter = (movies, searchQuery, locationPathname) => {
     (movie, index, self) =>
       index === self.findIndex((m) => locationPathname === '/movies' ? m.id === movie.id : m.movieId === movie.movieId)
   )
+
+  if (isFilterShortMovies) {
+    const filterData = uniqueMovies.filter(movie => movie.duration <= consts.DURATION_SHORT_FILMS)
+    return filterData
+  }
 
   return uniqueMovies
 }

@@ -6,7 +6,6 @@ const FilterCheckbox = ({ isFilterShortMovies, setIsFilterShortMovies }) => {
   const location = useLocation()
 
   const toggleCircle = () => {
-    console.log(111)
     setIsFilterShortMovies(!isFilterShortMovies)
     if (location.pathname === '/movies') {
       setStorageItem('isFilterShortMovies', !isFilterShortMovies)
