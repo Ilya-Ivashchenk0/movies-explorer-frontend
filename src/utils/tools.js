@@ -2,6 +2,9 @@ import consts from "./consts"
 
 export const searchFilter = (movies, searchQuery, isFilterShortMovies, locationPathname) => {
   if (!searchQuery.trim()) { // если в поисковой строке
+    if (isFilterShortMovies) {
+      return movies.filter(movie => movie.duration <= consts.DURATION_SHORT_FILMS)
+    }
     return movies
   }
 
@@ -22,7 +25,7 @@ export const searchFilter = (movies, searchQuery, isFilterShortMovies, locationP
     const filterData = uniqueMovies.filter(movie => movie.duration <= consts.DURATION_SHORT_FILMS)
     return filterData
   }
-
+  
   return uniqueMovies
 }
 

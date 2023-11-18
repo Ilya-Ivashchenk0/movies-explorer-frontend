@@ -91,6 +91,7 @@ const Movies = ({
     }
 
     const filterShortMovies = getStorageItem('isFilterShortMovies')
+
     const checkFilterShortMovies = () => {
       if (filterShortMovies) {
         setIsFilterShortMovies(filterShortMovies)
@@ -106,7 +107,7 @@ const Movies = ({
       setMovies(localMovies)
       const filterResult = searchFilter(localMovies, checkQuery(), checkFilterShortMovies(), location.pathname) // поисковый фильтр
 
-      if (filterResult < 1) {
+      if (filterResult.length < 1) {
         setNotification(consts.NOT_FOUND_MESSAGE)
       }
       setSearchResults(filterResult)
