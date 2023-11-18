@@ -2,14 +2,10 @@ import './FilterCheckbox.css'
 import { setStorageItem } from '../../../utils/localStorage'
 
 const FilterCheckbox = ({ isFilterShortMovies, setIsFilterShortMovies }) => {
+
   const toggleCircle = () => {
-    if (!isFilterShortMovies) {
-      setIsFilterShortMovies(true)
-      setStorageItem('isFilterShortMovies', isFilterShortMovies)
-    } else {
-      setIsFilterShortMovies(false)
-      setStorageItem('isFilterShortMovies', isFilterShortMovies)
-    }
+    setIsFilterShortMovies(!isFilterShortMovies)
+    setStorageItem('isFilterShortMovies', !isFilterShortMovies)
   }
 
   return (

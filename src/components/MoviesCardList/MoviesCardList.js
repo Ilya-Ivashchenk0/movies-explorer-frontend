@@ -17,9 +17,11 @@ const MoviesCardList = ({
 
   const filterShortMovies = () => {
     if (isFilterShortMovies) {
-      return searchResults.filter(movie => movie.duration < consts.DURATION_SHORT_FILMS)
+      const fileredMovies = searchResults.filter(movie => movie.duration < consts.DURATION_SHORT_FILMS)
+      return fileredMovies
+    } else {
+      return searchResults
     }
-    return searchResults
   }
 
   return (
@@ -29,8 +31,7 @@ const MoviesCardList = ({
       )}
       {searchResults.length > 0 && !isLoadingMovies && (
         <ul className={`movies-card-list__grid ${filterShortMovies().length <= 0 ? 'movies-card-list__grid_void' : ''}`}>
-          {filterShortMovies().length > 0 &&
-            filterShortMovies().slice(0, visibleMoviesLength).map((movie) => (
+          {filterShortMovies().slice(0, visibleMoviesLength).map((movie) => (
               <MoviesCard
                 key={(location.pathname === '/movies') ? movie.id : movie.movieId}
                 movie={movie}
@@ -38,7 +39,7 @@ const MoviesCardList = ({
                 savedMovies={savedMovies}
                 setSavedMovies={setSavedMovies}
               />
-            ))}
+          ))}
         </ul>
       )}
       {searchResults.length <= 0  && notification && (

@@ -55,9 +55,11 @@ const MoviesCard = ({
       nameEN: movie.nameEN
     })
       .then(newMovie => {
-        setSavedMovies([...savedMovies, newMovie])
+        const saveMovies = [...savedMovies, newMovie]
+        setSavedMovies(saveMovies)
         movie.isLiked = true
         movie._id = newMovie._id
+
       })
   }
 

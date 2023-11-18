@@ -18,7 +18,7 @@ const MoreMovies = ({ isMoreMovies, loadMoreMovies, isLoadingMovies }) => {
 
   return (
     <section className='more-movies'>
-      {location.pathname === 'movies' ? ( <></> ) : (
+      {location.pathname === '/saved-movies' ? ( <></> ) : (
         isMoreMovies && !isLoadingMovies && (
           loading ? (
             <Preloader />

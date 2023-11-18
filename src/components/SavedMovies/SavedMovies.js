@@ -25,8 +25,6 @@ const SavedMovies = ({
   const searchMovies = () => {
     const results = searchFilter(savedMovies, searchQuery, location.pathname)
 
-    localStorage.removeItem('savedSearchResultsSaved')
-
     if (results.length < 1) {
       setNotification(consts.NOT_FOUND_MESSAGE)
     } else {
