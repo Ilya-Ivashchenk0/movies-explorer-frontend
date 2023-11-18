@@ -4,6 +4,7 @@ import voidHeart from '../../images/void-heart.svg'
 import fullHeart from '../../images/full-heart.svg'
 import deleteIcon from '../../images/delete-icon.svg'
 import { mainApi } from '../../utils/MainApi'
+import { setStorageItem } from '../../utils/localStorage'
 
 const MoviesCard = ({
   movie,
@@ -55,11 +56,12 @@ const MoviesCard = ({
       nameEN: movie.nameEN
     })
       .then(newMovie => {
+        console.log(newMovie)
+        const filter = searchResults.filter(m => m.id === newMovie.movieId)
+        setStorageItem('searchResults', [...filter, newMovie])
+
         const saveMovies = [...savedMovies, newMovie]
         setSavedMovies(saveMovies)
-        movie.isLiked = true
-        movie._id = newMovie._id
-
       })
   }
 

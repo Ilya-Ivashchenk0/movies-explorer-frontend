@@ -105,7 +105,6 @@ const Movies = ({
     const results = getStorageItem('searchResults')
     if (results) {
       setSearchResults(results)
-      console.log(results)
       windowWidthControl(results)
     }
   }, [isFilterShortMovies])
