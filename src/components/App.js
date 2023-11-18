@@ -57,10 +57,7 @@ const App = () => {
           setSavedMovies(savedMovies)
           setCurrentUser(userInfo.data)
         })
-        .catch((err) => {
-          console.log(err)
-          setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE)
-        })
+        .catch(() => setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE))
     }
   }, [loggedIn])
 

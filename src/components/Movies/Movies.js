@@ -24,7 +24,7 @@ const Movies = ({
   const [searchQuery, setSearchQuery] = useState('') // посковой запрос
   const [searchResults, setSearchResults] = useState([]) // найденные по запросу фильмы
   const [isMoreMovies, setIsMoreMovies] = useState(false) // есть ли еще фильмы по запросу?
-  const [visibleMoviesLength, setVisibleMoviesLength] = useState(0) // длина отображающихся фильмов
+  const [visibleMoviesLength, setVisibleMoviesLength] = useState(consts.MOVIES_LENGTH()) // длина отображающихся фильмов
   const [isLoadingMovies, setIsLoadingMovies] = useState(false) // состояние прелоадера
   const [isFilterShortMovies, setIsFilterShortMovies] = useState(false) // включена ли фильтрация?
 
@@ -54,8 +54,6 @@ const Movies = ({
   const searchMovies = () => { // функция поиска фильмов
     const localMovies = getStorageItem('movies')
 
-    console.log(searchQuery)
-
     if (localMovies) { // если это не первый поиск
       const filterResult = searchFilter(localMovies, searchQuery, isFilterShortMovies, location.pathname) // поисковый фильтр
       if (filterResult.length < 1) {
@@ -63,7 +61,6 @@ const Movies = ({
         setNotification(consts.NOT_FOUND_MESSAGE)
       }
       setSearchResults(filterResult)
-      console.log(filterResult)
       windowWidthControl(filterResult)
     } else { // если это первый поиск и в локал нет фильмов
       moviesApi.getMovies() // запрос к api фильмов
@@ -73,7 +70,6 @@ const Movies = ({
           setStorageItem('movies', convertMovies)
           const filterResult = searchFilter(convertMovies, searchQuery, isFilterShortMovies, location.pathname)
           setSearchResults(filterResult)
-          console.log(filterResult)
           windowWidthControl(filterResult)
         })
         .catch(() => setNotification(consts.LOAD_MOVIES_ERROR_MESSAGE))
