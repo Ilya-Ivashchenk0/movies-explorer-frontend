@@ -22,7 +22,8 @@ const NavTab = ({ isOpenNavTab, toggleNavTab }) => {
         <NavLink
           onClick={toggleNavTab}
           className={({isActive, isPending}) =>
-          isPending ? 'nav-tab__link hover-element' : isActive ? 'nav-tab__link hover-element nav-tab__link-used' : 'nav-tab__link hover-element'}
+            isPending ? 'nav-tab__link hover-element' : isActive ? 'nav-tab__link hover-element nav-tab__link-used' : 'nav-tab__link hover-element'
+          }
           to='/'
         >
           Главная
@@ -30,7 +31,8 @@ const NavTab = ({ isOpenNavTab, toggleNavTab }) => {
         <NavLink
           onClick={toggleNavTab}
           className={({isActive, isPending}) =>
-          isPending ? 'nav-tab__link hover-element' : isActive ? 'nav-tab__link hover-element nav-tab__link-used' : 'nav-tab__link hover-element'}
+            isPending ? 'nav-tab__link hover-element' : isActive ? 'nav-tab__link hover-element nav-tab__link-used' : 'nav-tab__link hover-element'
+          }
           to='/movies'
         >
           Фильмы
@@ -38,17 +40,25 @@ const NavTab = ({ isOpenNavTab, toggleNavTab }) => {
         <NavLink
           onClick={toggleNavTab}
           className={({isActive, isPending}) =>
-          isPending ? 'nav-tab__link hover-element' : isActive ? 'nav-tab__link hover-element nav-tab__link-used' : 'nav-tab__link hover-element'}
+            isPending ? 'nav-tab__link hover-element' : isActive ? 'nav-tab__link hover-element nav-tab__link-used' : 'nav-tab__link hover-element'
+          }
           to='/saved-movies'
         >
           Сохранённые фильмы
         </NavLink>
-        <button className='nav-tab__profile-button hover-element' onClick={ goToProfile } type='button'>
+        <NavLink
+          className={({isActive, isPending}) =>
+            isPending ? 'nav-tab__profile-button hover-element' : isActive ? 'nav-tab__profile-button hover-element nav-tab__profile-button_used' : 'nav-tab__profile-button hover-element'
+          }
+          onClick={ goToProfile }
+          type='button'
+          to='/profile'
+        >
           Акаунт
           <span className='nav-tab__profile-round'>
             <img className='nav-tab__profile-icon' src={profile} alt='Иконка профиля' />
           </span>
-        </button>
+        </NavLink>
       </nav>
     </aside>
   )

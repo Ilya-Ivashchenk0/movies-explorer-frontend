@@ -3,7 +3,10 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { login } from '../../utils/auth'
 import logo from '../../images/logo.svg'
-import { useFormValidation } from '../../utils/tools'
+import { useFormValidation } from '../../hooks/formValidator'
+import consts from '../../utils/consts'
+import Notify from '../Notify/Notify'
+
 
 const Login = ({ loggedIn, setLoggedIn }) => {
   const navigate = useNavigate()
@@ -11,6 +14,10 @@ const Login = ({ loggedIn, setLoggedIn }) => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showNotify, setShowNotify] = useState(false)
+  const [successSignin, setSuccessSignin] = useState(false)
+  const [message, setMessage] = useState('')
+  const [inputsDisabled, setInputsDisabled] = useState(false)
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value)
@@ -22,16 +29,32 @@ const Login = ({ loggedIn, setLoggedIn }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    setInputsDisabled(true)
 
     login(email, password)
-      .then(() => {
+      .then((res) => {
+        setMessage(res.message)
+        setSuccessSignin(true)
+        setShowNotify(true)
         setLoggedIn(true)
         navigate('/movies')
       })
-      .catch((loginError) => {
-        console.error('Ошибка при входе:', loginError)
+      .catch((err) => {
+        setSuccessSignin(false)
+        setMessage(consts.FAILED_SIGNIN_MESSAGE)
+        setShowNotify(true)
+        setInputsDisabled(false)
       })
   }
+
+  useEffect(() => {
+    if (showNotify) {
+      const delay = setTimeout(() => {
+        setShowNotify(false)
+      }, 2500)
+      return () => clearTimeout(delay)
+    }
+  }, [showNotify])
 
   useEffect(() => {
     if (loggedIn) {
@@ -63,9 +86,10 @@ const Login = ({ loggedIn, setLoggedIn }) => {
           placeholder='Введите email'
           minLength='2'
           maxLength='40'
+          disabled={inputsDisabled}
           required
         />
-        <span className='login__error'>{errors.email}</span>
+        <span className={`login__error ${errors.email ? 'login__error-visible' : ''}`}>{errors.email}</span>
         <label className='login__heading' htmlFor='password'>
           Пароль
         </label>
@@ -83,10 +107,11 @@ const Login = ({ loggedIn, setLoggedIn }) => {
           className={`login__input ${errors.password ? 'login__input-error' : ''}`}
           minLength='2'
           maxLength='200'
+          disabled={inputsDisabled}
           required
         />
         <span className={`login__error ${errors.password ? 'login__error-visible' : ''}`}>{errors.password}</span>
-        <button className={`login__button hover-element ${!isValid ? 'login__button_disabled' : ''}`} type='submit' disabled={!isValid}>
+        <button className={`login__button hover-element ${!isValid || inputsDisabled ? 'login__button_disabled' : ''}`} type='submit' disabled={!isValid || inputsDisabled}>
           Войти
         </button>
       </form>
@@ -95,6 +120,7 @@ const Login = ({ loggedIn, setLoggedIn }) => {
           Регистрация
         </Link>
       </p>
+      {showNotify && <Notify message={message} isSuccess={successSignin}/>}
     </main>
   )
 }

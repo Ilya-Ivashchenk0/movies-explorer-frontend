@@ -36,33 +36,14 @@ const SavedMovies = ({
       setNotification(consts.NOT_SAVED_MOVIES_MESSAGE)
     }
     setSearchResults(results)
-    localStorage.setItem('savedSearchResultsSaved', JSON.stringify({ searchQuery, isFilterShortMovies, searchResults: results })) // сохраняем запрос с результатами локально
   }
 
   useEffect(() => {
-    const localResults = JSON.parse(localStorage.getItem('savedSearchResultsSaved'))
-
-    if (localResults) {
-      setSearchResults(localResults.searchResults)
-      setSearchQuery(localResults.searchQuery)
-      setIsFilterShortMovies(localResults.isFilterShortMovies)
-      if (localResults.searchResults.length < 1) {
-        setNotification(consts.NOT_FOUND_MESSAGE)
-      }
-      if (savedMovies.length < 1) {
-        setNotification(consts.NOT_SAVED_MOVIES_MESSAGE)
-        setSearchResults(savedMovies)
-      }
-    } else {
-      setSearchResults(savedMovies)
+    if (savedMovies.length < 1) {
+      setNotification(consts.NOT_SAVED_MOVIES_MESSAGE)
     }
+    setSearchResults(savedMovies)
   }, [savedMovies])
-
-  useEffect(() => {
-    if (searchResults.length === 0) {
-      localStorage.removeItem('savedSearchResultsSaved')
-    }
-  }, [searchResults])
 
   return (
     <main className='saved-movies'>

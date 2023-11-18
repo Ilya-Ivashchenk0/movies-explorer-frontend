@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import consts from '../../utils/consts'
 import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import { moviesApi } from '../../utils/MoviesApi'
-import { searchFilter, convertLikedMovies, lengthMovies } from '../../utils/tools'
+import { searchFilter, convertLikedMovies } from '../../utils/tools'
 import SearchForm from '../SearchForm/SearchForm'
 import MoviesCardList from '../MoviesCardList/MoviesCardList'
 import MoreMovies from '../MoreMovies/MoreMovies'
@@ -33,7 +33,7 @@ const Movies = ({
       setNotification(consts.NOT_FOUND_MESSAGE)
     }
 
-    if (data > lengthMovies(windowWidth)) {
+    if (data > consts.MOVIES_LENGTH(windowWidth)) {
       setIsMoreMovies(true)
     } else {
       setIsMoreMovies(false)
@@ -41,8 +41,7 @@ const Movies = ({
   }
 
   const loadMoreMovies = () => {
-    const moviesToAdd = windowWidth <= 767 ? 2 : 4
-    const nextMovies = visibleMoviesLength + moviesToAdd
+    const nextMovies = visibleMoviesLength + consts.MOVIES_TO_ADD(windowWidth)
 
     if (searchResults.length > nextMovies) {
       setVisibleMoviesLength(nextMovies)
@@ -94,7 +93,7 @@ const Movies = ({
   }, [])
 
   useEffect(() => {
-    setVisibleMoviesLength(lengthMovies(windowWidth))
+    setVisibleMoviesLength(consts.MOVIES_LENGTH(windowWidth))
   }, [windowWidth])
 
   return (

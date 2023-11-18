@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { signout } from '../../utils/auth'
 import { CurrentUserContext } from '../../contexts/CurrentUserContext'
 import { mainApi } from '../../utils/MainApi'
-import { useFormValidation } from '../../utils/tools'
+import { useFormValidation } from '../../hooks/formValidator'
 import consts from '../../utils/consts'
 
 const Profile = ({ setLoggedIn }) => {
@@ -34,7 +34,6 @@ const Profile = ({ setLoggedIn }) => {
 
   const logout = () => {
     localStorage.removeItem('savedSearchResults')
-    localStorage.removeItem('savedSearchResultsSaved')
     signout()
       .then(() => {
         setLoggedIn(false)
@@ -156,7 +155,7 @@ const Profile = ({ setLoggedIn }) => {
               </span>
               <button
                 type='submit'
-                disabled={validateError}
+                disabled={validateError || !isEditing}
                 className={`profile__save-button ${validateError ? 'profile__save-button_disabled' : 'hover-element'}`}
               >
                 Сохранить

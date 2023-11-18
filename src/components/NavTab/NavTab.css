@@ -72,11 +72,12 @@
 }
 
 .nav-tab__profile-button {
-  margin-top: 621px;
+  margin-top: 550px;
   padding: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  text-decoration: none;
   background-color: #202020;
   border: none;
   border-radius: 40px;
@@ -93,6 +94,12 @@
   .nav-tab__profile-button {
     margin-top: 444px;
   }
+}
+
+.nav-tab__profile-button_used {
+  border: 0.5px solid white;
+  border-width: thin;
+  border-style: dashed;
 }
 
 .nav-tab__profile-round {

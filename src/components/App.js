@@ -65,7 +65,11 @@ const App = () => {
   }, [loggedIn])
 
   useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth) // обработчик изменения размера окна
+    const handleResize = (e) => {
+      setTimeout(function() {
+        setWindowWidth(window.innerWidth)
+      }, 300)
+    } // обработчик изменения размера окна
     window.addEventListener('resize', handleResize) // добавляем слушатель события при монтировании компонента
     return () => window.removeEventListener('resize', handleResize) // убираем слушатель события при размонтировании компонента
   }, [])

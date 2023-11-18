@@ -5,7 +5,11 @@ const consts = {
   SUCCESS_UPDATE_MESSAGE: 'Обновление профиля прошло успешно!',
   FAILED_UPDATE_MESSAGE: 'При обновлении профиля произошла ошибка.',
   DURATION_SHORT_FILMS: 40,
-
+  EMAIL_REGEX: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  FAILED_SIGNIN_MESSAGE: 'Пользователь с указанными логином и паролем не найден.',
+  FAILED_SIGNUP_MESSAGE: 'Пользователь с таким email уже существует.',
+  MOVIES_LENGTH: (w) => w <= 767 ? 5 : w >= 768 && w <= 1280 ? 8 : 16,
+  MOVIES_TO_ADD: (w) => w <= 767 ? 2 : 4
 }
 
 export default consts
