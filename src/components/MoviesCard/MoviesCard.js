@@ -56,8 +56,6 @@ const MoviesCard = ({
         const saveMovies = [...savedMovies, newMovie]
         setSavedMovies(saveMovies)
         movie.isLiked = true
-        console.log(movie._id)
-        console.log(newMovie._id)
         movie._id = newMovie._id
         const filter = convertLikedMovies(movies, saveMovies)
         setStorageItem('movies', filter)
