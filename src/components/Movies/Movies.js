@@ -52,6 +52,7 @@ const Movies = ({
   }
 
   const searchMovies = () => { // функция поиска фильмов
+    setVisibleMoviesLength(consts.MOVIES_LENGTH(windowWidth))
     const localMovies = getStorageItem('movies')
 
     if (localMovies) { // если это не первый поиск

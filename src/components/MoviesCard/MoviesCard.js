@@ -1,4 +1,5 @@
 import './MoviesCard.css'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import voidHeart from '../../images/void-heart.svg'
 import fullHeart from '../../images/full-heart.svg'
@@ -6,6 +7,8 @@ import deleteIcon from '../../images/delete-icon.svg'
 import { mainApi } from '../../utils/MainApi'
 import { getStorageItem, setStorageItem } from '../../utils/localStorage'
 import { convertLikedMovies } from '../../utils/tools'
+import { WindowWidthContext } from '../../contexts/WindowWidthContext'
+import consts from '../../utils/consts'
 
 const MoviesCard = ({
   movie,
@@ -14,6 +17,9 @@ const MoviesCard = ({
   setSavedMovies
 }) => {
   const location = useLocation()
+  const windowWidth = React.useContext(WindowWidthContext)
+
+  const [isHover, setIsHover] = useState(false)
 
   const convertDuration = () => {
     const hours = Math.floor(movie.duration / 60)
@@ -80,11 +86,23 @@ const MoviesCard = ({
   }
 
   return (
-    <li className='movies-card'>
+    <li
+      className='movies-card'
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+    >
       <img onClick={trailerWatch} className='movies-card__img' src={location.pathname === '/movies' ? `https://api.nomoreparties.co${movie.image.url}` : movie.image} alt={movie.nameRU} />
       <div className='movies-card__board'>
         <h2 className='movies-card__name'>{ movie.nameRU }</h2>
-        <button onClick={location.pathname === '/movies' ? (movie.isLiked ? handleDeleteLike : handleAddLike) : handleDeleteLike} className='movies-card__button hover-element' type='button'><img className='movies-card__icon' src={icon()} alt='Иконка лайка' /></button>
+        {(windowWidth < consts.DESKTOP || isHover) && (
+          <button
+            onClick={location.pathname === '/movies' ? (movie.isLiked ? handleDeleteLike : handleAddLike) : handleDeleteLike}
+            className='movies-card__button hover-element'
+            type='button'
+          >
+            <img className='movies-card__icon' src={icon()} alt='Иконка лайка' />
+          </button>
+        )}
       </div>
       <p className='movies-card__time'>{ convertDuration() }</p>
     </li>

@@ -8,10 +8,11 @@ const consts = {
   EMAIL_REGEX: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   FAILED_SIGNIN_MESSAGE: 'Пользователь с указанными логином и паролем не найден.',
   FAILED_SIGNUP_MESSAGE: 'Пользователь с таким email уже существует.',
-  MOVIES_LENGTH: (w) => w <= 767 ? 5 : w >= 768 && w <= 1280 ? 8 : 16,
-  MOVIES_TO_ADD: (w) => w <= 767 ? 2 : 4,
+  MOVIES_LENGTH: (w) => w <= 767 ? 5 : w >= 768 && w <= 1279 ? 8 : 16,
+  MOVIES_TO_ADD: (w) => w <= 1280 ? 2 : 4,
   SMALL: 767,
-  SMALL_PLUS: 768
+  SMALL_PLUS: 768,
+  DESKTOP: 1280
 }
 
 export default consts
