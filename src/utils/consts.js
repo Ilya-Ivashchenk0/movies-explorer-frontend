@@ -9,7 +9,9 @@ const consts = {
   FAILED_SIGNIN_MESSAGE: 'Пользователь с указанными логином и паролем не найден.',
   FAILED_SIGNUP_MESSAGE: 'Пользователь с таким email уже существует.',
   MOVIES_LENGTH: (w) => w <= 767 ? 5 : w >= 768 && w <= 1280 ? 8 : 16,
-  MOVIES_TO_ADD: (w) => w <= 767 ? 2 : 4
+  MOVIES_TO_ADD: (w) => w <= 767 ? 2 : 4,
+  SMALL: 767,
+  SMALL_PLUS: 768
 }
 
 export default consts

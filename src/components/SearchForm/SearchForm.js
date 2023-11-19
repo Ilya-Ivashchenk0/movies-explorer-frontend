@@ -5,6 +5,7 @@ import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import search from '../../images/search-icon.svg'
 import { setStorageItem } from '../../utils/localStorage'
+import consts from '../../utils/consts'
 
 const SearchForm = ({
   searchMovies,
@@ -54,9 +55,9 @@ const SearchForm = ({
           placeholder='Фильм'
         />
         <button className='search-form__button hover-element' type='submit'>Найти</button>
-        {windowWidth >= 768 && (<FilterCheckbox isFilterShortMovies={isFilterShortMovies} setIsFilterShortMovies={setIsFilterShortMovies} />)}
+        {windowWidth >= consts.SMALL_PLUS && (<FilterCheckbox isFilterShortMovies={isFilterShortMovies} setIsFilterShortMovies={setIsFilterShortMovies} />)}
       </div>
-      {windowWidth <= 767 && (<FilterCheckbox isFilterShortMovies={isFilterShortMovies} setIsFilterShortMovies={setIsFilterShortMovies} />)}
+      {windowWidth <= consts.SMALL && (<FilterCheckbox isFilterShortMovies={isFilterShortMovies} setIsFilterShortMovies={setIsFilterShortMovies} />)}
       <div className='search-form__line' />
     </form>
   )

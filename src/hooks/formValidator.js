@@ -12,14 +12,17 @@ export const useFormValidation = () => {
     const value = target.value
     setValues({...values, [name]: value})
 
+    let newErrors = { ...errors }
+
     if (name === 'email') {
       const isValidEmail = consts.EMAIL_REGEX.test(value)
-      setErrors({ ...errors, [name]: isValidEmail ? '' : 'Пожалуйста введите корректный email' })
+      newErrors = { ...newErrors, [name]: isValidEmail ? '' : 'Пожалуйста введите корректный email' }
     } else {
-      setErrors({...errors, [name]: target.validationMessage })
+      newErrors = { ...newErrors, [name]: target.validationMessage }
     }
 
-    setIsValid(target.closest('form').checkValidity())
+    setErrors(newErrors)
+    setIsValid(Object.values(newErrors).every(error => error === '') && target.closest('form').checkValidity())
   }
 
   const resetForm = useCallback(
