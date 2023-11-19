@@ -173,6 +173,9 @@ const Profile = ({ setLoggedIn }) => {
               >
                 Сохранить
               </button>
+              <button onClick={handleEdit} className='profile__signout-button hover-element' type='button'>
+                Отмена
+              </button>
             </>
           )}
         </form>
