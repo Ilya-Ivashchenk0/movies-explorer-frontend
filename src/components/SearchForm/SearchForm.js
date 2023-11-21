@@ -1,52 +1,64 @@
 import './SearchForm.css'
-import { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import search from '../../images/search-icon.svg'
+import { setStorageItem } from '../../utils/localStorage'
+import consts from '../../utils/consts'
 
-function SearchForm() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+const SearchForm = ({
+  searchMovies,
+  isFilterShortMovies,
+  setIsFilterShortMovies,
+  searchQuery,
+  setSearchQuery
+}) => {
+  const windowWidth = React.useContext(WindowWidthContext)
+  const location = useLocation()
+
   const [isInputFocused, setIsInputFocused] = useState(false)
 
-  useEffect(() => {
-    const handleResize = () => { // обработчик изменения размера окна
-      setWindowWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', handleResize) // добавляем слушатель события при монтировании компонента
-    return () => {
-      window.removeEventListener('resize', handleResize) // убираем слушатель события при размонтировании компонента
-    }
-  }, [])
-
-  const handleInputFocus = () => {
+  const handleInputFocus = () => { // состояние фокуса поля
     setIsInputFocused(true)
   }
 
-  const handleInputBlur = () => {
+  const handleInputBlur = () => { // состояние когда поле не в фокусе
     setIsInputFocused(false)
   }
 
+  const handleChange = (e) => { // изменение значения в поле
+    setSearchQuery(e.target.value)
+    if (location.pathname === '/movies') {
+      setStorageItem('searchQuery', e.target.value)
+    }
+  }
+
+  const handleSubmit = (e) => { // сабмит формы поиска
+    e.preventDefault()
+    searchMovies()
+  }
+
   return (
-    <form className='search-form'>
-      {windowWidth >= 768 ? (
-        <>
-          <div className={`search-form__panel ${isInputFocused ? 'search-form__panel_type_focused' : ''}`}>
-            <img className='search-form__icon' src={search} alt='Иконка поиска' />
-            <input onFocus={handleInputFocus} onBlur={handleInputBlur} className='search-form__input' type='text' placeholder='Фильм' required />
-            <button className='search-form__button hover-element' type='submit'>Найти</button>
-            <FilterCheckbox />
-          </div>
-          <div className='search-form__line' />
-        </>
-      ) : (
-        <>
-          <div className={`search-form__panel ${isInputFocused ? 'search-form__panel_type_focused' : ''}`}>
-            <input onFocus={handleInputFocus} onBlur={handleInputBlur} className='search-form__input' type='text' placeholder='Фильм' required />
-            <button className='search-form__button hover-element' type='submit'>Найти</button>
-          </div>
-          <FilterCheckbox />
-          <div className='search-form__line' />
-        </>
-      )}
+    <form className='search-form' onSubmit={handleSubmit}>
+      <div className={`search-form__panel ${isInputFocused ? 'search-form__panel_type_focused' : ''}`}>
+        <img className='search-form__icon' src={search} alt='Иконка поиска' />
+        <input
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          onChange={handleChange}
+          value={searchQuery}
+          autoComplete='off'
+          name='movie'
+          className='search-form__input'
+          type='text'
+          placeholder='Фильм'
+        />
+        <button className='search-form__button hover-element' type='submit'>Найти</button>
+        {windowWidth >= consts.SMALL_PLUS && (<FilterCheckbox isFilterShortMovies={isFilterShortMovies} setIsFilterShortMovies={setIsFilterShortMovies} />)}
+      </div>
+      {windowWidth <= consts.SMALL && (<FilterCheckbox isFilterShortMovies={isFilterShortMovies} setIsFilterShortMovies={setIsFilterShortMovies} />)}
+      <div className='search-form__line' />
     </form>
   )
 }

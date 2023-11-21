@@ -96,6 +96,10 @@
   background-color: #202020;
 }
 
+.login__input-error {
+  color: #EE3465;
+}
+
 
 .login__button {
   margin-top: 203px;
@@ -118,6 +122,11 @@
     font-size: 12px;
     line-height: 14.52px;
   }
+}
+
+.login__button_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
 }
 
 .login__question {

@@ -82,7 +82,7 @@
 }
 
 .profile__edit-button {
-  margin-top: 220px;
+  margin: 0;
   padding: 0;
   background: none;
   border: none;
@@ -92,15 +92,8 @@
   line-height: 15.73px;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1279px) {
-  .profile__edit-button {
-    margin-top: 212px;
-  }
-}
-
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .profile__edit-button {
-    margin-top: 379px;
     font-size: 12px;
     line-height: 14.52px;
   }
@@ -125,7 +118,7 @@
 }
 
 .profile__save-button {
-  margin-top: 20px;
+  margin: 0;
   padding: 0;
   background-color: #3456F3;
   border: none;
@@ -148,22 +141,10 @@
 }
 
 .profile__error {
-  margin-top: 220px;
+  margin: 0;
   padding: 0;
   min-height: 14px;
   visibility: hidden;
-}
-
-@media screen and (min-width: 768px) and (max-width: 1279px) {
-  .profile__error {
-    margin-top: 180px;
-  }
-}
-
-@media screen and (min-width: 320px) and (max-width: 767px) {
-  .profile__error {
-    margin-top: 379px;
-  }
 }
 
 .profile__error-visable {
@@ -206,4 +187,37 @@
 .profile__input:focus {
   outline: none;
   border: none;
+}
+
+.profile__success-box {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 220px;
+}
+
+.profile__edit-success {
+  margin: 0;
+  padding: 0;
+  color: #36B37E;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  animation: fadeOut 3.5s ease-in-out;
+}
+
+.profile__edit-success_faled {
+  color: #EE3465;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

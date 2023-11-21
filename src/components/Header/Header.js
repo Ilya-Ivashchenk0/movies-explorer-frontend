@@ -1,18 +1,14 @@
 import './Header.css'
-import { useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import React from 'react'
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { WindowWidthContext } from '../../contexts/WindowWidthContext'
 import profile from '../../images/profile.svg'
 
-function Header({ toggleNavTab, isOpenNavTab }) {
+const Header = ({ toggleNavTab, loggedIn }) => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [loggedIn, setLoggedIn] = useState(true)
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
-  const toggleLogin = () => {
-    setLoggedIn(true)
-  }
+  const windowWidth = React.useContext(WindowWidthContext)
 
   const isMain = () => {
     if (location.pathname === '/') {
@@ -22,47 +18,57 @@ function Header({ toggleNavTab, isOpenNavTab }) {
     }
   }
 
-  useEffect(() => {
-    const handleResize = () => { // обработчик изменения размера окна
-      setWindowWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', handleResize) // добавляем слушатель события при монтировании компонента
-    return () => {
-      window.removeEventListener('resize', handleResize) // убираем слушатель события при размонтировании компонента
-    }
-  }, [])
-
   const goToPofile = () => {
     navigate('/profile')
   }
 
   return (
     <header className={`header ${isMain() ? 'header_type_main' : ''}`}>
-      <Link className='header__logo hover-element-link' to='/' />
+      <Link className='header__logo hover-element' to='/' />
       {loggedIn && windowWidth > 1279 && (
         <div className='header__dashboard'>
           <div className='header__movies-links'>
-            <Link to='/movies' className='header__link hover-element-link'>Фильмы</Link>
-            <Link to='/saved-movies' className='header__link hover-element-link'>Сохранённые фильмы</Link>
+            <NavLink
+              to='/movies'
+              className={({isActive, isPending}) =>
+                isPending ? 'header__link hover-element' : isActive ? 'header__link hover-element header__link-used' : 'header__link hover-element'
+              }
+            >
+              Фильмы
+            </NavLink>
+            <NavLink
+              to='/saved-movies'
+              className={({isActive, isPending}) =>
+                isPending ? 'header__link hover-element' : isActive ? 'header__link hover-element header__link-used' : 'header__link hover-element'
+              }
+            >
+              Сохранённые фильмы
+            </NavLink>
           </div>
-          <button className='header__profile-button hover-element' onClick={goToPofile} type='submit'>
+          <NavLink
+            className={({isActive, isPending}) =>
+              isPending ? 'header__profile-button hover-element' : isActive ? 'header__profile-button hover-element header__profile-button_used' : 'header__profile-button hover-element'
+            }
+            onClick={goToPofile}
+            type='submit'
+            to='/profile'
+          >
             Аккаунт
             <span className='header__profile-round'>
               <img className='header__profile-icon' src={profile} alt='Иконка профиля' />
             </span>
-          </button>
+          </NavLink>
         </div>
       )}
       {!loggedIn && (
         <nav className='header__sign-links'>
-          <Link to='/signup' className='header__link hover-element-link'>Регистрация</Link>
+          <Link to='/signup' className='header__link hover-element'>Регистрация</Link>
           <Link to='/signin' className='header__signin-button hover-element'>Войти</Link>
         </nav>
       )}
       {loggedIn && windowWidth <= 1279 && (
         <button
           onClick={toggleNavTab}
-          onClose={toggleLogin}
           className='header__menu-button hover-element'
           aria-label='Открыть меню'
           type='button'
