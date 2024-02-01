@@ -12,8 +12,6 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.9.236
-
 Backend https://movies-explorer-api.test-tasks.ru
 
 Frontend https://movies-explorer-frontend.test-tasks.ru
