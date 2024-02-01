@@ -14,6 +14,6 @@
 
 IP-адрес 51.250.9.236
 
-Backend https://api.movie.explorer.nomoredomainsrocks.ru
+Backend https://movies-explorer-api.test-tasks.ru
 
-Frontend https://movie.explorer.nomoredomainsrocks.ru
+Frontend https://movies-explorer-frontend.test-tasks.ru
