@@ -24,7 +24,7 @@ const Movies = ({
   const [searchQuery, setSearchQuery] = useState('') // посковой запрос
   const [searchResults, setSearchResults] = useState([]) // найденные по запросу фильмы
   const [isMoreMovies, setIsMoreMovies] = useState(false) // есть ли еще фильмы по запросу?
-  const [visibleMoviesLength, setVisibleMoviesLength] = useState(consts.MOVIES_LENGTH()) // длина отображающихся фильмов
+  const [visibleMoviesLength, setVisibleMoviesLength] = useState(consts.MOVIES_LENGTH(windowWidth)) // длина отображающихся фильмов
   const [isLoadingMovies, setIsLoadingMovies] = useState(false) // состояние прелоадера
   const [isFilterShortMovies, setIsFilterShortMovies] = useState(false) // включена ли фильтрация?
 
@@ -114,6 +114,7 @@ const Movies = ({
       setSearchResults(filterResult)
       windowWidthControl(filterResult)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFilterShortMovies])
 
   useEffect(() => {
