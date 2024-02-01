@@ -41,6 +41,7 @@ const SavedMovies = ({
       setNotification(consts.NOT_SAVED_MOVIES_MESSAGE)
     }
     searchMovies()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [savedMovies, isFilterShortMovies])
 
   return (

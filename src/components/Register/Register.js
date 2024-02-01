@@ -42,6 +42,7 @@ const Register = ({ loggedIn, setLoggedIn }) => {
       .then((res) => {
         login(email, password)
           .then(() => {
+            setSuccessSignup(true)
             setLoggedIn(true)
             navigate('/movies')
           })
